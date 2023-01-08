@@ -1,0 +1,90 @@
+<%- include("./layouts/header.ejs")%>
+
+  <section class="sehs-1">
+
+    <div class="sehs-1-1">
+      <h3>DASHBOARD</h3>
+
+      <div class="sehs-1-1-2">
+        <div>
+          <i class="fa-sharp fa-solid fa-house"></i>
+          <a href="/admin/edithome">Home Page</a>
+        </div>
+
+        <div>
+          <i class="fa-sharp fa-solid fa-address-card"></i>
+          <a href="/admin/editabout">About Page</a>
+        </div>
+
+        <div>
+          <i class="fa-sharp fa-solid fa-diagram-project"></i>
+          <a href="/admin/editprojects">Project Page</a>
+        </div>
+
+        <div>
+          <i class="fa-sharp fa-solid fa-bell-concierge"></i>
+          <a href="/admin/editservices">Services Page</a>
+        </div>
+
+
+      </div>
+
+
+      <div class="sehs-1-1-3">
+        <a href="/admin/logout">Log Out</a>
+      </div>
+
+    </div>
+
+
+
+    <div class="sehs-1-2">
+      <h3>HOME PAGE</h3>
+
+      <div class="sehs-1-2-2">
+        <form action="/admin/edithome" method="POST" enctype="multipart/form-data">
+          <label for="">Image</label>
+          <input type="file" name="image">
+          <input type="submit" value="submit">
+        </form>
+      </div>
+
+      <div class="sehs-1-2-3">
+        <ul>
+          <li class="sehs-1-2-3-heading"><p>IMAGES</p><a></a></li>
+          <% for (var i=0; i <edithomes.length; i++ ) { %>
+            <li>
+              <p>
+                <%= edithomes[i].home_image %>
+              </p>
+              <a href=""><i class="fa-solid fa-trash deleteData" data-id="<%=edithomes[i]._id%>"></i></a>
+              
+            </li>
+            <% } %>
+
+        </ul>
+      </div>
+
+    </div>
+
+  </section>
+
+  <script>
+
+    $(document).ready(function () {
+       $('.deleteData').click(function(){
+        var postId = $(this).attr('data-id')
+        var obj = $(this);
+
+        $.ajax({
+          url:"/admin/deletehomedata",
+          type: "POST",
+          data: {id:postId}
+        })
+       })
+    })
+  </script>
+
+  </body>
+
+  </html>

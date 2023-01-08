@@ -1,0 +1,233 @@
+.sehs-1 {
+    display: flex;
+}
+
+.sehs-1-1 {
+    width: 300px;
+    min-height: calc(100vh - 73px);
+    height: auto;
+    background-color: #232323;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 30px;
+}
+
+.sehs-1-2 {
+    width: calc(100vw - 300px);
+    min-height: calc(100vh - 73px);
+    height: auto;
+    background-color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 30px  60px;
+}
+
+
+.sehs-1-1-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    padding: 30px;
+}
+
+.sehs-1-1-2>div {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 260px;
+    margin: 10px 0px;
+
+    border-bottom: 1px solid white;
+}
+
+.sehs-1-1-2>div>i {
+    margin: 0px 16px 0px 0px;
+    color: white;
+}
+
+.sehs-1-1-2>div>a {
+    text-decoration: none;
+    color: white;
+}
+
+.sehs-1-1-2>div>a:hover {
+    text-decoration: none;
+    color: rgb(91, 91, 91);
+}
+
+
+
+.sehs-1-1-3 {
+
+    position: absolute;
+    bottom: 0px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    padding: 30px;                   
+}
+
+.sehs-1-1-3>a {
+    color: white;
+    padding: 10px; 
+}
+
+.sehs-1-1-3>a:hover {
+    text-decoration: none;
+    color: rgb(91, 91, 91);
+}
+
+
+.sehs-1-2-2 {
+    width: 100%;
+    margin: 30px;
+} 
+
+.sehs-1-2-2>form {
+    display: flex;
+    width: 300px;
+    flex-direction: column;
+    color: #232323;
+} 
+
+.sehs-1-2-2>form>input{ 
+   margin: 0px 0px 20px 0px;
+   padding: 10px 20px;
+   outline: none;
+   color: rgb(91, 91, 91);
+   border: 1px solid  rgb(91, 91, 91);
+   border-radius: 2px;
+} 
+
+.sehs-1-2-2>form>textarea{
+    margin: 0px 0px 20px 0px;
+    padding: 10px 20px;
+    outline: none;
+    color: rgb(91, 91, 91);
+    border: 1px solid  rgb(91, 91, 91);
+    border-radius: 2px;
+} 
+
+.sehs-1-2-2>form>label{
+   margin: 0px 0px 3px 0px;
+} 
+
+
+
+.sehs-1-2-2>form>input[type='file'] {
+    outline: none;
+    font-style: italic;
+    color: rgb(91, 91, 91);
+    border: 1px solid  rgb(91, 91, 91);
+    border-radius: 2px;
+}
+
+.sehs-1-2-2>form>input[type="submit"]{
+    display: block;
+    outline: none;
+    border: none;
+    background-color: rgb(70, 147, 255);
+    padding: 10px 60px;
+    border-radius: 2px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+
+.sehs-1-2-2>form>input[type="submit"]:hover{
+    background-color: rgba(70, 147, 255, 0.9); 
+}
+
+::-webkit-file-upload-button {
+    outline: none; 
+    border: none;
+    margin: 0px 5px 0px 0px;
+    padding: 0;
+    text-decoration: underline;
+    color: rgb(91, 91, 91);
+    display: none;
+}
+
+
+.sehs-1-2-3 {
+    width: 100%;
+    color: #232323;
+}
+
+.sehs-1-2-3-heading{
+    color: rgb(91, 91, 91);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.sehs-1-2-3>ul>li {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0px;
+    border-bottom: 1px solid rgb(91, 91, 91); 
+}
+
+.sehs-1-2-3>ul>li:last-child {
+
+    border-bottom: none; 
+}
+
+.sehs-1-2-3>ul>li>a {
+    color: #232323;
+}
+
+.sehs-1-2-3>ul>li>p{
+    width: 20%;
+    max-height: 200px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+
+@media only screen and (max-width:1000px) {
+    .sehs-1 {
+        flex-direction: column;
+    }
+
+    .sehs-1-1 {
+        width: 100%;
+        min-height: 100%;
+        height: auto;
+    }
+
+    .sehs-1-2 { 
+        width: 100%;
+        min-height: 100%;
+        height: auto;
+        padding: 30px;
+    }
+
+
+    .sehs-1-1-3 {
+       padding: 0px;
+        position: relative;
+
+    }
+
+    .sehs-1-2-3>ul>li {
+        width: 100%
+    }
+
+    .sehs-1-2-3>ul>li>p{
+        width: 20%
+    }
+
+}

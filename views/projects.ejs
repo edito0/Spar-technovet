@@ -1,0 +1,17 @@
+<%- include("./layouts/header.ejs")%>
+
+
+<section class="sps-1">
+    
+    <% for (var i=0; i <projectData.length; i++ ) { %>
+        <div class="sps-1-1">
+            <a href="<%=projectData[i]._id%>">
+            <img src="<%=projectData[i].project_image%>" alt="img">
+            <h1><%=projectData[i].project_title%></h1>
+        </a>
+        </div>
+        <% } %>
+
+</section>
+
+<%- include("./layouts/footer.ejs")%>

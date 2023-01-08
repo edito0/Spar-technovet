@@ -1,0 +1,49 @@
+<%- include("./layouts/header.ejs")%>
+
+
+    <section class="scs-1">
+
+        <h3>Let's Connect</h3>
+        <p>We would love to hear from you, please use the form below!</p>
+
+        <form action="" method="POST">
+            <div>
+                <div>
+                    <label for="">Name</label>
+                    <input type="text">
+                </div>
+                <div>
+                    <label for="">Email</label>
+                    <input type="email">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label for="">Phone</label>
+                    <input type="tel">
+                </div>
+                <div>
+                    <label for="">Inquiry Type</label>
+                    <select name="" id="">
+                        <option value="">Commercial</option>
+                        <option value="">Residentail</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <div style="margin: 0px 0px 20px 0px;">
+                <label for="">Inquiry Type</label>
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: center;">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+
+
+    </section>
+
+    <%- include("./layouts/footer.ejs")%>

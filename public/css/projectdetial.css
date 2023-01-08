@@ -1,0 +1,49 @@
+.spds-1{
+    display: flex;
+    margin: 60px;
+}
+
+.spds-1-1{
+    width: 40vw;
+}
+
+.spds-1-1>img{
+    width:  40vw;
+}
+
+.spds-1-2{
+    margin: 0px 0px 0px 60px;
+    width: 100%;
+} 
+
+.spds-1-2>h1{
+    margin: 0px 0px 30px 0px; 
+    font-size: 25px;
+} 
+
+.spds-1-2-3{
+    display: flex;
+    align-items: baseline;
+
+} 
+
+.spds-1-2-3>h3{
+    margin: 0px 0px 0px 0px; 
+    font-size: 20px;
+    font-weight: 400;
+} 
+
+.spds-1-2-3>p{
+    margin: 0px 0px 0px 10px; 
+    font-size: 16px;
+    color: gray;
+} 
+
+
+.spds-1-2>p{
+    text-align: justify;
+    color: gray;
+    font-size: 16px;
+    line-height: 26px;
+    margin: 0px 0px 60px 0px; 
+ }

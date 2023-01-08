@@ -1,0 +1,27 @@
+<%- include("./layouts/header.ejs")%>
+
+
+<section class="spds-1">
+
+     <div class="spds-1-1">
+        <img src="<%= projectDetail.project_image%>" alt="">
+     </div>
+
+     <div class="spds-1-2">
+        <h1><%= projectDetail.project_title%></h1>
+        <p><%= projectDetail.project_content%></p>
+        
+        <div class="spds-1-2-3">
+            <h3>Location - </h3>
+            <p><%= projectDetail.project_detail%></p>
+        </div>
+
+     </div>
+
+    </section> 
+
+<%- include("./layouts/footer.ejs")%>
+
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<%- include("./layouts/header.ejs")%>
+
+  <section class="sehs-1">
+
+    <div class="sehs-1-1">
+      <h3>DASHBOARD</h3>
+
+      <div class="sehs-1-1-2">
+        <div>
+          <i class="fa-sharp fa-solid fa-house"></i>
+          <a href="/admin/edithome">Home Page</a>
+        </div>
+
+        <div>
+          <i class="fa-sharp fa-solid fa-address-card"></i>
+          <a href="/admin/editabout">About Page</a>
+        </div>
+
+        <div>
+          <i class="fa-sharp fa-solid fa-diagram-project"></i>
+          <a href="/admin/editprojects">Project Page</a>
+        </div>
+
+        <div>
+          <i class="fa-sharp fa-solid fa-bell-concierge"></i>
+          <a href="/admin/editservices">Services Page</a>
+        </div>
+
+
+      </div>
+
+
+      <div class="sehs-1-1-3">
+        <a href="/admin/logout">Log Out</a>
+      </div>
+
+    </div>
+
+
+
+    <div class="sehs-1-2">
+      <h3>PROJECTS PAGE</h3>
+
+      <div class="sehs-1-2-2">
+        <form action="/admin/editprojects" method="POST" enctype="multipart/form-data">
+          <label for="">Title</label>
+          <input type="text" name="title" placeholder="Enter Title">
+          <label for="">Image</label> 
+          <input type="file" name="image" multiple>
+          <label for="">Project Location</label>
+          <textarea name="detail" id="" cols="30" rows="10" placeholder="Enter Content"></textarea>
+          <label for="">Content</label>
+          <textarea name="content" id="" cols="30" rows="10" placeholder="Enter Content"></textarea>
+          <input type="submit" value="submit">
+        </form>
+      </div>
+
+      <div class="sehs-1-2-3">
+        <ul>
+          <li class="sehs-1-2-3-heading"><p>TITLE</p><p>IMAGES</p><p>CONTENT</p><a></a></li>
+          <% for (var i=0; i <editprojects.length; i++ ) { %>
+            <li>
+              <p>
+                <%=editprojects[i].project_title%>
+              </p> 
+              <p> 
+                <%= editprojects[i].project_image %>
+              </p>
+              <p> 
+                <%= editprojects[i].project_content %>
+              </p>
+              <a href=""><i class="fa-solid fa-trash deleteData" data-id="<%=editprojects[i]._id%>"></i></a>
+  
+            </li>
+            <% } %>
+
+        </ul>
+      </div>
+
+    </div>
+
+  </section>
+
+  <script>
+
+    $(document).ready(function () {
+       $('.deleteData').click(function(){
+        var postId = $(this).attr('data-id')
+        var obj = $(this);
+
+        $.ajax({
+          url:"/admin/deleteprojectsdata",
+          type: "POST",
+          data: {id:postId}
+        })
+       })
+    })
+  </script>
+
+  </body>
+
+  </html>
