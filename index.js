@@ -6,10 +6,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 mongoose.set("strictQuery", false);
-mongoose.connect('mongodb://127.0.0.1:27017/sparData', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://spar:spar123456789@cluster0.0i2pm4o.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
 
 const app = express();
-
+  
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -159,5 +159,5 @@ const port = process.env.PORT || 3000;
 
 //App is listening at this port:-
 app.listen(port, () => {
-    console.log("Server is running at port no. - 3000");
+    console.log("Server is running at port no. - "+port);
 })   
