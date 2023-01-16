@@ -1,12 +1,17 @@
 const express = require('express');
+const dotenv = require('dotenv');
 
 const path = require('path');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-mongoose.set("strictQuery", false);
-mongoose.connect('mongodb+srv://spar:spar123456789@cluster0.0i2pm4o.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
+dotenv.config({path: './config/config.env'});
+ 
+const DB = process.env.DATABASE;
+
+mongoose.set("strictQuery", false); 
+mongoose.connect(DB, { useNewUrlParser: true });
 
 const app = express();
 
