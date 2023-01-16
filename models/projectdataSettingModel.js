@@ -6,7 +6,7 @@ const projectSettingSchema = mongoose.Schema({
         require:true
     },
     project_image:{
-        type:String,
+        type: Object,
         require:true
     },
     project_content:{

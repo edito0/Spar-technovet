@@ -9,6 +9,7 @@
     min-width: 300px;
     width: 100%;
     height: auto;
+    max-height: 500px;
     position: relative;
     transition: all 0.9s ease;
 }
@@ -45,7 +46,7 @@
 }
 
 .sps-1-1>a>h1{
-    color: white;
+    color: var(--light);
     bottom: 0px;
     text-align:center;
     width: 100%;
@@ -54,7 +55,7 @@
     padding: 10px;
     text-transform: uppercase;
     letter-spacing: 9px;
-    background-color: #232323;
+    background-color: var(--green);
     border-radius: 0px 0px 15px 15px ;  
     overflow-wrap: break-word;
     font-weight: 400;

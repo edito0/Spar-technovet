@@ -3,9 +3,24 @@ const About = require('../models/aboutdataSettingModel');
 const Services = require('../models/servicesdataSettingModel');
 const Project = require('../models/projectdataSettingModel');
 const Home = require('../models/homedataSettingModel');
+const Contact = require('../models/contactdataSettingModel');
 const bcrypt = require('bcrypt');
 
+const nodemailer = require('nodemailer')
+const randomstring = require('randomstring')
 
+const config =  require('../config/config');
+
+//FORGOT PASSWORD
+const forgetPassword = async(req,res)=>{
+   try {
+     res.render('forgetpassword')          
+
+   } catch (error) {
+     console.log(error.message);
+   }
+}
+//FORGOT PASSWORD ENDS
 
 // LOGIN PAGE
 const login = async (req, res) => {
@@ -255,17 +270,17 @@ const postEditProject = async (req, res) => {
 
     try {
         var image = '';
-        if (req.file.filename !== undefined) {
-            image = "/images/" + req.file.filename;
+        if (req.files !== undefined) {
+            image = req.files.map(files=>{
+                return ("/images/" + files.filename)
+            });
         }
-
-        console.log(image);
-
+        
 
         const project = new Project(
             {
                 project_image: image,
-                project_title: req.body.title,
+                project_title: req.body.title, 
                 project_content: req.body.content,
                 project_detail: req.body.detail 
             }
@@ -293,7 +308,19 @@ const deletePorjectData = async (req, res) => {
 //PROJECT PAGE ENDS
 
 
-
+// ANALYTICS 
+const  analytics = async (req, res) => {
+    
+    try {
+        const contactData = await Contact.find({});
+            res.render('analytics',{contactData}                
+            );
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+}
+// ANALYTICS ENDS 
 
 
 
@@ -313,7 +340,9 @@ module.exports = {
     deleteServicesData,
     editProjects, 
     postEditProject,
-    deletePorjectData
+    deletePorjectData,
+    analytics,
+    forgetPassword
 }
 
 

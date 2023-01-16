@@ -4,17 +4,41 @@
     box-sizing: border-box;
 }
 
+
+/* font-family: 'Bodoni Moda', serif;
+font-family: 'Hind', sans-serif;
+font-family: 'Manrope', sans-serif;
+font-family: 'Noto Sans', sans-serif;
+font-family: 'Nunito', sans-serif;
+font-family: 'Poppins', sans-serif;
+font-family: 'Roboto', sans-serif; */
+
+
+
+
+/* 
+font-family: 'Cormorant Garamond', serif;
+font-family: 'Lavishly Yours', cursive;
+font-family: 'Roboto', sans-serif; */
+
+ 
+:root{
+    --light:#F4F0ED;
+    --green:#1E443E;
+    --dark:#232323;
+    --semi_dark:#616161;
+    --orange:#CD997B;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     position: relative;
     min-height: 100vh;
-    color: #232323;
+    color: var(--dark);
 /* 
     position: relative; */
 }
 
-/* font-family: 'Open Sans', sans-serif;
-font-family: 'Roboto', sans-serif; */
 
 html {
     scroll-behavior: smooth;
@@ -30,7 +54,7 @@ html {
 
     font-weight: bold;
     font-size: 14px;
-    color: #232323;
+    color: var(--dark);
 
     position: relative;
 
@@ -55,17 +79,18 @@ html {
     text-decoration: none;
     display: block;
     padding: 10px 20px;
-    color: #232323;;
+    color: var(--dark)
 }
 
 .nav_email>a {
     text-decoration: none;
     display: block;
-    color: #232323;
+    color:var(--dark);
 }
 
 .nav a:hover {
-    color: rgb(91, 91, 91);
+    color:var(--green);
+    text-decoration: underline wavy var(--orange);
 }
 
 .humburger {
@@ -80,7 +105,7 @@ html {
     width: 30px;
     height: 3px;
     margin: 5px 0px;
-    background-color: #232323;
+    background-color: var(--dark);
 }
 
 
@@ -143,10 +168,10 @@ html {
 
 /* FOOTER STARTS*/
 .footer {
-    background-color: #232323;;
+    background-color: var(--green);
     width: 100%;
     height: 190px;
-    color: white;
+    color: var(--light);
 
     display: flex;
     flex-direction: column;
@@ -171,7 +196,7 @@ html {
 
 .footer>div>div>a>i {
     font-size: 20px;
-    color: white;
+    color: var(--light);
 }
 
 .footer>div:last-child {
@@ -179,7 +204,7 @@ html {
 }
 
 .footer>div:last-child>a {
-    color: white;
+    color: var(--light);
     text-decoration: none;
 }
 
@@ -203,7 +228,7 @@ html {
     }
 
     .nav_items {
-        background-color: rgb(255, 255, 255);
+        background-color: var(--light);
         position: absolute;
         left: -100%;
 

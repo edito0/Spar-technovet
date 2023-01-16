@@ -31,6 +31,33 @@ app.use('/admin', adminRoute);
 app.use('/contact', (req, res) => {
     res.render('contact');
 })
+
+const contactsettings = require('./models/contactdataSettingModel');
+
+app.post('/postcontact', async (req, res) => {
+    try {
+        const contact = new contactsettings(
+            {
+               name : req.body.name,
+               email : req.body.email,
+               phone : req.body.phone,
+               inquiryType: req.body.InquiryType,
+               message: req.body.message,
+
+            }
+        );
+
+        const contactData = await contact.save();
+
+    }
+    catch (error) {
+        console.log(error.message);
+    } 
+ 
+    res.redirect('/contact');
+})
+
+
 // CONTACT PAGE ENDS
 
 
@@ -104,12 +131,32 @@ app.use('/', async (req, res) => {
         console.log(error.message);
     }
 
-})
+}) 
 // HOME PAGE ENDS
 
+// SOCIAL MEDIA PAGE:-
+const homesetting = require('./models/homedataSettingModel');
 
+app.use('/media', async (req, res) => {
+    try {
+        const homeData = await homesetting.find({})
+        res.render('media', {
+            homeData 
+        });
+
+
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+
+}) 
+// SOCIAL MEDIA PAGE ENDS
+
+
+const port = process.env.PORT || 3000;
 
 //App is listening at this port:-
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log("Server is running at port no. - 3000");
 }) 

@@ -1,0 +1,143 @@
+<%- include("./layouts/header.ejs")%>
+<%var char_commercial = 0 %>
+<%var char_residential = 0 %>
+<% for(var i=0;i<contactData.length;i++){%>
+    <%if(contactData[i].inquiryType == 'Commercial'){%>
+        <%char_commercial++%>
+    <%}else{%>
+        <%char_residential++%>
+    <%}%>
+<%}%>
+
+    <section class="sehs-1">
+        <div class="sehs-1-1">
+            <h3>DASHBOARD</h3>
+
+            <div class="sehs-1-1-2">
+                <div>
+                    <i class="fa-sharp fa-solid fa-house"></i>
+                    <a href="/admin/edithome">Home Page</a>
+                </div>
+
+                <div>
+                    <i class="fa-sharp fa-solid fa-address-card"></i>
+                    <a href="/admin/editabout">About Page</a>
+                </div>
+
+                <div>
+                    <i class="fa-sharp fa-solid fa-diagram-project"></i>
+                    <a href="/admin/editprojects">Project Page</a>
+                </div>
+
+                <div>
+                    <i class="fa-sharp fa-solid fa-bell-concierge"></i>
+                    <a href="/admin/editservices">Services Page</a>
+                </div>
+
+                <div>
+                    <i class="fa-sharp fa-solid fa-chart-simple"></i>
+                    <a href="/admin/analytics">Analytics</a>
+                </div>
+
+
+            </div>
+
+
+            <div class="sehs-1-1-3">
+                <a href="/admin/logout">Log Out</a>
+            </div>
+
+        </div>
+
+
+
+        <div class="sehs-1-2">
+            <h3>ANALYTICS</h3>
+
+            
+            <div class="analytics_counter">
+                <div class="counter">
+                    <p>No. of times website is visited :</p>
+                    <p class="count"></p>
+                </div>
+                <div class="counter">
+                    <p>No. of visitors contacted you :</p>
+                    <p><%=contactData.length%></p>
+                </div>
+            </div> 
+           
+
+            <div class="analytics_chart">
+                <canvas id="myChart"></canvas>
+            </div>
+
+
+
+        </div>
+
+       <!-- Data for Chart -->
+       <div class="hiddenData">
+           <%=char_commercial%>
+        </div>
+        
+        <div class="hiddenData">
+            <%=char_residential %>
+        </div>
+        <!-- Data for Chart ends -->
+        
+    </section>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+
+       const char_commercial = document.querySelectorAll('.hiddenData')[0].innerHTML;
+
+       const char_residential = document.querySelectorAll('.hiddenData')[1].innerHTML;
+
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Residential', 'Commercial'],
+                datasets: [{
+                    label: 'Inquiry Types',
+                    data: [char_commercial,char_residential],
+                    borderWidth: 1,
+                    backgroundColor: '#1E443E'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+
+
+        const counter = document.querySelector('.count');
+
+        updateVisitCount();
+
+        function updateVisitCount() {
+            fetch('https://api.countapi.xyz/update/florin-popcom/codepen/?amount=1')
+                .then(res => res.json())
+                .then(res => {
+                    counter.innerHTML = res.value;
+                })
+        }
+
+    </script>
+
+
+    </body>
+
+    </html>
