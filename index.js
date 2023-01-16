@@ -1,4 +1,5 @@
 const express = require('express');
+
 const path = require('path');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
@@ -151,7 +152,7 @@ app.use('/media', async (req, res) => {
     }
 
 }) 
-// SOCIAL MEDIA PAGE ENDS
+// SOCIAL MEDIA PAGE ENDS 
 
 
 const port = process.env.PORT || 3000;
@@ -159,4 +160,4 @@ const port = process.env.PORT || 3000;
 //App is listening at this port:-
 app.listen(port, () => {
     console.log("Server is running at port no. - 3000");
-}) 
+})   
