@@ -5,20 +5,23 @@ const Project = require('../models/projectdataSettingModel');
 const Home = require('../models/homedataSettingModel');
 const Contact = require('../models/contactdataSettingModel');
 const bcrypt = require('bcrypt');
+const path = require('path');
+const multer = require('multer');
+const sharp = require('sharp');
 
 const nodemailer = require('nodemailer')
 const randomstring = require('randomstring')
 
-const config =  require('../config/config');
+const config = require('../config/config');
 
 //FORGOT PASSWORD
-const forgetPassword = async(req,res)=>{
-   try {
-     res.render('forgetpassword')          
+const forgetPassword = async (req, res) => {
+    try {
+        res.render('forgetpassword')
 
-   } catch (error) {
-     console.log(error.message);
-   }
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 //FORGOT PASSWORD ENDS
 
@@ -44,7 +47,7 @@ const loginSave = async (req, res) => {
                 res.redirect('/admin/edithome');
             }
             else {
-                res.render('login', {  
+                res.render('login', {
                     alert: "Entered Password is Wrong"
                 })
             }
@@ -98,38 +101,43 @@ const editHome = async (req, res) => {
 }
 
 const postEditHome = async (req, res) => {
-
     try {
+        
+        let compressImg = Date.now()+'-'+req.file.originalname;
+        let compressImgPath = path.join(__dirname,"../public/images",compressImg);
+          
+        sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
+ 
         var image = '';
         if (req.file.filename !== undefined) {
-            image = "/images/" + req.file.filename;
+            image = "/images/" + compressImg;
         }
-
+         
         const home = new Home(
             {
                 home_image: image
-            }
-        );
-
+            }  
+        );    
+ 
         const homeData = await home.save();
 
     }
     catch (error) {
         console.log(error.message);
-    } 
- 
+    }
+
     res.redirect('/admin/edithome');
 }
 
 const deleteHomeData = async (req, res) => {
     try {
-        await Home.deleteOne({_id:req.body.id})
+        await Home.deleteOne({ _id: req.body.id })
         res.redirect('/admin/edithome');
-    } catch (error) { 
-        console.log(error.message); 
-    } 
+    } catch (error) {
+        console.log(error.message);
+    }
 
-} 
+}
 // HOME PAGE ENDS 
 
 
@@ -154,16 +162,21 @@ const editAbout = async (req, res) => {
 const postEditAbout = async (req, res) => {
 
     try {
+        let compressImg = Date.now()+'-'+req.file.originalname;
+        let compressImgPath = path.join(__dirname,"../public/images",compressImg);
+          
+        sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
+ 
         var image = '';
         if (req.file.filename !== undefined) {
-            image = "/images/" + req.file.filename;
+            image = "/images/" + compressImg;
         }
 
         const about = new About(
             {
                 about_title: req.body.title,
                 about_image: image,
-                about_content : req.body.content
+                about_content: req.body.content
             }
         );
 
@@ -172,20 +185,20 @@ const postEditAbout = async (req, res) => {
     }
     catch (error) {
         console.log(error.message);
-    } 
- 
+    }
+
     res.redirect('/admin/editabout');
 }
 
 const deleteAboutData = async (req, res) => {
     try {
-        await About.deleteOne({_id:req.body.id})
+        await About.deleteOne({ _id: req.body.id })
         res.redirect('/admin/editabout');
-    } catch (error) { 
-        console.log(error.message); 
-    } 
+    } catch (error) {
+        console.log(error.message);
+    }
 
-} 
+}
 // ABOUT PAGE ENDS
 
 
@@ -199,16 +212,21 @@ const deleteAboutData = async (req, res) => {
 const postEditServices = async (req, res) => {
 
     try {
+        let compressImg = Date.now()+'-'+req.file.originalname;
+        let compressImgPath = path.join(__dirname,"../public/images",compressImg);
+          
+        sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
+ 
         var image = '';
         if (req.file.filename !== undefined) {
-            image = "/images/" + req.file.filename;
+            image = "/images/" + compressImg;
         }
 
         const services = new Services(
             {
                 services_title: req.body.title,
                 services_image: image,
-                services_content : req.body.content
+                services_content: req.body.content
             }
         );
 
@@ -217,20 +235,20 @@ const postEditServices = async (req, res) => {
     }
     catch (error) {
         console.log(error.message);
-    } 
- 
+    }
+
     res.redirect('/admin/editservices');
 }
 
 const deleteServicesData = async (req, res) => {
     try {
-        await Services.deleteOne({_id:req.body.id})
+        await Services.deleteOne({ _id: req.body.id })
         res.redirect('/admin/editservices');
-    } catch (error) { 
-        console.log(error.message); 
-    } 
+    } catch (error) {
+        console.log(error.message);
+    }
 
-} 
+}
 
 const editServices = async (req, res) => {
     try {
@@ -269,20 +287,22 @@ const editProjects = async (req, res) => {
 const postEditProject = async (req, res) => {
 
     try {
+        let compressImg = Date.now()+'-'+req.file.originalname;
+        let compressImgPath = path.join(__dirname,"../public/images",compressImg);
+          
+        sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
+ 
         var image = '';
-        if (req.files !== undefined) {
-            image = req.files.map(files=>{
-                return ("/images/" + files.filename)
-            });
+        if (req.file.filename !== undefined) {
+            image = "/images/" + compressImg;
         }
-        
 
         const project = new Project(
             {
                 project_image: image,
-                project_title: req.body.title, 
+                project_title: req.body.title,
                 project_content: req.body.content,
-                project_detail: req.body.detail 
+                project_detail: req.body.detail
             }
         );
 
@@ -291,30 +311,30 @@ const postEditProject = async (req, res) => {
     }
     catch (error) {
         console.log(error.message);
-    } 
- 
+    }
+
     res.redirect('/admin/editprojects');
 }
 
 const deletePorjectData = async (req, res) => {
     try {
-        await Project.deleteOne({_id:req.body.id})
+        await Project.deleteOne({ _id: req.body.id })
         res.redirect('/admin/editproject');
-    } catch (error) { 
-        console.log(error.message); 
-    } 
+    } catch (error) {
+        console.log(error.message);
+    }
 
-} 
+}
 //PROJECT PAGE ENDS
 
 
 // ANALYTICS 
-const  analytics = async (req, res) => {
-    
+const analytics = async (req, res) => {
+
     try {
         const contactData = await Contact.find({});
-            res.render('analytics',{contactData}                
-            );
+        res.render('analytics', { contactData }
+        );
     }
     catch (error) {
         console.log(error.message);
@@ -338,7 +358,7 @@ module.exports = {
     editServices,
     postEditServices,
     deleteServicesData,
-    editProjects, 
+    editProjects,
     postEditProject,
     deletePorjectData,
     analytics,

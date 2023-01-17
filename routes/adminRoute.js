@@ -39,7 +39,7 @@ admin_route.set('views','./views');
 const storage = multer.diskStorage({
     destination:function(req,file,cb)
     {
-        cb(null,path.join(__dirname,"../public/images"))
+        cb(null,path.join(__dirname,"../public/images/original-img"))
     },
     filename:function (req,file,cb) { 
         const name = Date.now()+'-'+file.originalname;
@@ -50,20 +50,6 @@ const storage = multer.diskStorage({
 const upload = multer({storage:storage}); 
 // MULTER ENDS
 
-// MULTER 
-const storages = multer.diskStorage({
-    destination:function(req,file,cb)
-    {
-        cb(null,path.join(__dirname,"../public/images/"))
-    },
-    filename:function (req,file,cb) { 
-        const name = Date.now()+'-'+file.originalname;
-        cb(null,name);
-    }
-});
-
-const uploads = multer({storage:storages}); 
-// MULTER ENDS
 
 
 // ADMIN CONTROLER 
@@ -102,7 +88,7 @@ admin_route.post('/deleteservicesdata',adminLogAuth.isLogin,adminController.dele
 
 // PROJECT PAGE
 admin_route.get('/editprojects',adminLogAuth.isLogin,adminController.editProjects);
-admin_route.post('/editprojects',uploads.array('image',9),adminLogAuth.isLogin,adminController.postEditProject); 
+admin_route.post('/editprojects',upload.array('image',9),adminLogAuth.isLogin,adminController.postEditProject); 
 admin_route.post('/deleteprojectsdata',adminLogAuth.isLogin,adminController.deletePorjectData);
 // PROJECT PAGE ENDS 
 

@@ -141,13 +141,13 @@ app.use('/', async (req, res) => {
 // HOME PAGE ENDS
 
 // SOCIAL MEDIA PAGE:-
-const mediasetting = require('./models/homedataSettingModel');
+// const mediasetting = require('./models/');
 
 app.use('/media', async (req, res) => {
     try { 
-        const homeData = await mediasetting.find({})
+        // const homeData = await mediasetting.find({})
         res.render('media', {
-            homeData 
+            // homeData 
         });                                                                                         
     }
     catch (error) {
