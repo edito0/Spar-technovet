@@ -102,23 +102,23 @@ const editHome = async (req, res) => {
 
 const postEditHome = async (req, res) => {
     try {
-        
-        let compressImg = Date.now()+'-'+req.file.originalname;
-        let compressImgPath = path.join(__dirname,"../public/images",compressImg);
-          
+
+        let compressImg = Date.now() + '-' + req.file.originalname;
+        let compressImgPath = path.join(__dirname, "../public/images", compressImg);
+
         sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
- 
+
         var image = '';
         if (req.file.filename !== undefined) {
             image = "/images/" + compressImg;
         }
-         
+
         const home = new Home(
             {
                 home_image: image
-            }  
-        );    
- 
+            }
+        );
+
         const homeData = await home.save();
 
     }
@@ -162,11 +162,11 @@ const editAbout = async (req, res) => {
 const postEditAbout = async (req, res) => {
 
     try {
-        let compressImg = Date.now()+'-'+req.file.originalname;
-        let compressImgPath = path.join(__dirname,"../public/images",compressImg);
-          
+        let compressImg = Date.now() + '-' + req.file.originalname;
+        let compressImgPath = path.join(__dirname, "../public/images", compressImg);
+
         sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
- 
+
         var image = '';
         if (req.file.filename !== undefined) {
             image = "/images/" + compressImg;
@@ -212,11 +212,11 @@ const deleteAboutData = async (req, res) => {
 const postEditServices = async (req, res) => {
 
     try {
-        let compressImg = Date.now()+'-'+req.file.originalname;
-        let compressImgPath = path.join(__dirname,"../public/images",compressImg);
-          
+        let compressImg = Date.now() + '-' + req.file.originalname;
+        let compressImgPath = path.join(__dirname, "../public/images", compressImg);
+
         sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
- 
+
         var image = '';
         if (req.file.filename !== undefined) {
             image = "/images/" + compressImg;
@@ -287,15 +287,19 @@ const editProjects = async (req, res) => {
 const postEditProject = async (req, res) => {
 
     try {
-        let compressImg = Date.now()+'-'+req.file.originalname;
-        let compressImgPath = path.join(__dirname,"../public/images",compressImg);
-          
-        sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
- 
-        var image = '';
-        if (req.file.filename !== undefined) {
-            image = "/images/" + compressImg;
+        var image = ''; 
+        if (req.files !== undefined) {
+            image = req.files.map(files => {
+
+                let compressImg = Date.now() + '-' + files.originalname;
+                let compressImgPath = path.join(__dirname, "../public/images", compressImg);
+
+                sharp(files.path).webp({ quality: 3 }).toFile(compressImgPath)
+
+                return ("/images/" + compressImg )
+            });
         }
+
 
         const project = new Project(
             {
