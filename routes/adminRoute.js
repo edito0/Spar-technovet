@@ -10,7 +10,7 @@ const admin_route = express();
 
 // SESSION
 const session = require('express-session');
-const config = require('../config/config');
+const config = require('../config/config.js');
 
 admin_route.use(session({
     secret:config.sessionSecret,
@@ -32,7 +32,7 @@ admin_route.use(bodyParser.urlencoded({extended:true}));
 admin_route.use(express.static('./public'))
 
 admin_route.set('view engine','ejs'); 
-admin_route.set('views','./views'); 
+admin_route.set('views','./views');  
  
 
 // MULTER 
@@ -102,7 +102,7 @@ admin_route.post('/deleteservicesdata',adminLogAuth.isLogin,adminController.dele
 
 // PROJECT PAGE
 admin_route.get('/editprojects',adminLogAuth.isLogin,adminController.editProjects);
-admin_route.post('/editprojects',uploads.array('image',9),adminLogAuth.isLogin,adminController.postEditProject);
+admin_route.post('/editprojects',uploads.array('image',9),adminLogAuth.isLogin,adminController.postEditProject); 
 admin_route.post('/deleteprojectsdata',adminLogAuth.isLogin,adminController.deletePorjectData);
 // PROJECT PAGE ENDS 
 
@@ -112,9 +112,6 @@ admin_route.get('/analytics',adminLogAuth.isLogin,adminController.analytics);
 
 
 admin_route.get('/forget-password',adminLogAuth.isLogout,adminController.forgetPassword);
-
-
-
 
 
 module.exports = admin_route;

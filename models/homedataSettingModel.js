@@ -6,7 +6,7 @@ const homedataSettingSchema = mongoose.Schema({
         require:true,
         default:""
     }   
-}) 
+})  
 
 
 
