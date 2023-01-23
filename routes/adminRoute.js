@@ -97,6 +97,11 @@ admin_route.get('/analytics',adminLogAuth.isLogin,adminController.analytics);
 // ANALYTICS ENDS 
 
 
+//MEDIA PAGE
+// admin_route.get('/editmedia',adminLogAuth.isLogin,adminController.editmedia);
+//MEDIA PAGES ENDS
+
+
 admin_route.get('/forget-password',adminLogAuth.isLogout,adminController.forgetPassword);
 
 

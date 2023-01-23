@@ -1,4 +1,4 @@
-<%- include("./layouts/header2.ejs")%>
+<!-- <%- include("./layouts/header2.ejs")%>
 
   <section class="sehs-1">
 
@@ -51,7 +51,7 @@
 
 
     <div class="sehs-1-2">
-      <h3>ABOUT PAGE</h3>
+      <h3>MEDIA PAGE</h3>
 
       <div class="sehs-1-2-2">
         <form action="/admin/editabout" method="POST" enctype="multipart/form-data">
@@ -67,7 +67,7 @@
 
       <div class="sehs-1-2-3">
         <ul>
-          <li class="sehs-1-2-3-heading"><p>TITLE</p><p>IMAGES</p><p>CONTENT</p><a></a></li>
+          <li class="sehs-1-2-3-heading"><p>TITLE</p><p>IMAGES</p><a></a></li>
           <% for (var i=0; i <editabouts.length; i++ ) { %>
             <li>
               <p>
@@ -76,14 +76,12 @@
               <p>
                 <%=editabouts[i].about_image%>
               </p>
-              <p>
-                <%=editabouts[i].about_content%>
-              </p>
+ 
               <a href=""><i class="fa-solid fa-trash deleteData" data-id="<%=editabouts[i]._id%>"></i></a>
 
             </li>
 
-            <%}%>
+            <%}%> 
 
         </ul>
       </div>
@@ -110,4 +108,4 @@
 
   </body>
 
-  </html>
+  </html> -->

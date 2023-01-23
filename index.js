@@ -120,10 +120,15 @@ app.use('/about', async(req, res) => {
 
 
 // SOCIAL MEDIA PAGE:-
+const mediasettings = require('./models/mediadataSettingModel');
 
 app.use('/media', async (req, res) => {
     try { 
-        res.render('media')     
+        const mediaData = await mediasettings.find({})
+
+        res.render('media',{
+            mediaData
+        })     
     }
     catch (error) {
         console.log(error.message);
