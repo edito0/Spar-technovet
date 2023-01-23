@@ -23,7 +23,7 @@ font-family: 'Roboto', sans-serif; */
 
  
 :root{
-    --light:#F4F0ED;
+    --light:#ffffff;
     --green:#1E443E;
     --dark:#232323;
     --semi_dark:#616161;
@@ -90,7 +90,6 @@ html {
 
 .nav a:hover {
     color:var(--green);
-    text-decoration: underline wavy var(--orange);
 }
 
 .humburger {
@@ -113,7 +112,7 @@ html {
 /* NAVBAR ENDS */
 
 
-/* HERO STARTS */
+/* HERO STARTS */ 
 
 .shs-1 {
     height: calc(100vh - 73px);
@@ -129,7 +128,7 @@ html {
 
 .arrow-left {
     position: absolute;
-    top: calc(50% - 85px);
+    top: 50%;
     left: 10px; 
     transform: scale(0.8);
     opacity: 0.6;
@@ -137,7 +136,7 @@ html {
 
 .arrow-right {
     position: absolute;
-    top: calc(50% - 85px);
+    top: 50%;
     right: 10px;
     transform: scale(0.8);
     opacity: 0.6;
@@ -179,8 +178,8 @@ html {
     align-items: center;
     font-size: 13px;
 
-    /* position: absolute;
-    bottom: 0px; */
+    position: absolute;
+    bottom: -190px;
 }
 
 
@@ -247,7 +246,7 @@ html {
         align-items: center;
 
         position: absolute;
-        top: 300px;
+        top: 450px;
         left: -100%;
         width: 100%;
 
@@ -259,6 +258,11 @@ html {
     .nav_items>ul {
         flex-direction: column;
     }
+
+    .nav_items>ul>li {
+       margin: 10px 0px;
+    }
+    
 
     .nav_items_menu {
         left: 0;

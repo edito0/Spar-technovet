@@ -97,7 +97,7 @@
     width: 100%;
     margin: 30px;
 } 
-
+ 
 .sehs-1-2-2>form {
     display: flex;
     width: 300px;
@@ -170,7 +170,7 @@
 }
 
 .sehs-1-2-3-heading{
-    color: rgb(91, 91, 91);
+    color: rgb(91, 91, 91); 
     font-size: 12px;
     font-weight: bold;
 }
@@ -188,7 +188,7 @@
     border-bottom: none; 
 }
 
-.sehs-1-2-3>ul>li>a {
+.sehs-1-2-3>ul>li>a { 
     color: #232323;
 }
 

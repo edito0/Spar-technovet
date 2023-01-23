@@ -33,8 +33,6 @@
     </svg>
 
 
-    <%- include("./layouts/footer.ejs")%>
-
     <script>
         //FOR THE HOME PAGE SLIDER
 
@@ -65,19 +63,19 @@
                 x = 100;
             }
 
-            image_super_container.style.transform = ' rotate(6deg) scale(0.7)';
+            image_super_container.style.transform = 'scale(0.7)';
             image_super_container.style.opacity = '0.3';
 
 
 
             setTimeout(() => {
                 image_container.style.transform = `translateX(${x - 100}%)`;
-                image_super_container.style.transform = ' rotate(-3deg) scale(0.7)';
+                image_super_container.style.transform = 'scale(0.7)';
                 x = x - 100;
             }, 300)
 
             setTimeout(() => {
-                image_super_container.style.transform = ' rotate(0deg) scale(1)';
+                image_super_container.style.transform = 'scale(1)';
                 image_super_container.style.opacity = '1';
             }, 600)
 
@@ -88,19 +86,19 @@
         const slideRight = () => {
 
             if (x < 0) {
-                image_super_container.style.transform = ' rotate(-6deg) scale(0.7)';
+                image_super_container.style.transform = 'scale(0.7)';
                 image_super_container.style.opacity = '0.3';
 
 
 
                 setTimeout(() => {
                     image_container.style.transform = `translateX(${x + 100}%)`;
-                    image_super_container.style.transform = ' rotate(3deg) scale(0.7)';
+                    image_super_container.style.transform = 'scale(0.7)';
                     x = x + 100;
                 }, 300)
 
                 setTimeout(() => {
-                    image_super_container.style.transform = ' rotate(0deg) scale(1)';
+                    image_super_container.style.transform = 'scale(1)';
                     image_super_container.style.opacity = '1';
                 }, 600)
             }
@@ -111,7 +109,7 @@
 
 
 
-        setInterval(slideLeft,6000)
+        setInterval(slideLeft,10000)
 
 
         window.addEventListener('load',slideLeft)
@@ -121,6 +119,4 @@
 
 
 
-    </body>
-
-    </html>
+<%- include("./layouts/footer.ejs")%>

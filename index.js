@@ -119,6 +119,20 @@ app.use('/about', async(req, res) => {
 // ABOUT PAGE ENDS
 
 
+// SOCIAL MEDIA PAGE:-
+
+app.use('/media', async (req, res) => {
+    try { 
+        res.render('media')     
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+
+})   
+// SOCIAL MEDIA PAGE ENDS 
+
+
 
 
 // HOME PAGE:-
@@ -139,23 +153,7 @@ app.use('/', async (req, res) => {
 
 }) 
 // HOME PAGE ENDS
-
-// SOCIAL MEDIA PAGE:-
-// const mediasetting = require('./models/');
-
-app.use('/media', async (req, res) => {
-    try { 
-        // const homeData = await mediasetting.find({})
-        res.render('media', {
-            // homeData 
-        });                                                                                         
-    }
-    catch (error) {
-        console.log(error.message);
-    }
-
-})   
-// SOCIAL MEDIA PAGE ENDS 
+ 
 
 
 const port = process.env.PORT || 3000;
