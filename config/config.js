@@ -1,9 +1,11 @@
 const sessionSecret = "sparsissionsecret";
 const clientEmail = "sparofficialmail@gmail.com";
-const clientPassword = "spar123456789";
+const clientPassword = 'pozkyjfehqkpkxgi';
+const clientPassword_gmail = "spar123456789";
 
 module.exports = {
     sessionSecret,
     clientEmail,
-    clientPassword
+    clientPassword,
+    clientPassword_gmail
 }

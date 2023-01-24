@@ -5,16 +5,19 @@ const path = require('path');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer')
 
-dotenv.config({path: './config/config.env'});
- 
+const config = require('./config/config.js');
+dotenv.config({ path: './config/config.env' });
+
 const DB = process.env.DATABASE;
 
-mongoose.set("strictQuery", false); 
+// DATABASE= mongodb+srv://spartechnovetpvtltd2023:puJgN8SuEAbnCqb1@sparwebdata.fsuedyd.mongodb.net/?retryWrites=true&w=majority 
+
+mongoose.set("strictQuery", false);
 mongoose.connect(DB, { useNewUrlParser: true });
 
 const app = express();
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "./public")));
 
 
- 
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, "./views"));
 
@@ -41,14 +44,47 @@ app.use('/contact', (req, res) => {
 const contactsettings = require('./models/contactdataSettingModel');
 
 app.post('/postcontact', async (req, res) => {
+
     try {
+
+        const trasnport = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            requireTLS: true,
+            auth: {
+                user: config.clientEmail, 
+                pass: config.clientPassword
+            }
+        });
+
+        const mailOptions = {
+            from: config.clientEmail,
+            to: config.clientEmail,
+            subject: `${req.body.name} want to contact you`,
+            html: `<p>Name - ${req.body.name}</p> </br>
+                   <p>Email - ${req.body.email} </p> </br>
+                   <p>Phone Number - ${req.body.phone} </p> </br>
+                   <p>InquiryType - ${ req.body.InquiryType} </p> </br>
+                   <p>message - ${ req.body.message} </p>`
+        }
+
+        trasnport.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            }
+            else {
+                console.log("Email has been send", info);
+            }
+        })
+
         const contact = new contactsettings(
             {
-               name : req.body.name,
-               email : req.body.email,
-               phone : req.body.phone,
-               inquiryType: req.body.InquiryType,
-               message: req.body.message,
+                name: req.body.name,
+                email: req.body.email,
+                phone: req.body.phone,
+                inquiryType: req.body.InquiryType,
+                message: req.body.message,
 
             }
         );
@@ -58,8 +94,8 @@ app.post('/postcontact', async (req, res) => {
     }
     catch (error) {
         console.log(error.message);
-    } 
- 
+    }
+
     res.redirect('/contact');
 })
 
@@ -69,7 +105,7 @@ app.post('/postcontact', async (req, res) => {
 
 
 
-//PROEJCT PAGE
+//PROEJCT PAGE 
 const projectRoute = require('./routes/projectRoute');
 app.use('/projects', projectRoute);
 // PROJECT PAGE ENDS
@@ -80,10 +116,10 @@ app.use('/projects', projectRoute);
 //SERVICES PAGE:-
 const servicessettings = require('./models/servicesdataSettingModel');
 
-app.use('/services', async(req, res) => {
+app.use('/services', async (req, res) => {
 
     try {
-        const servicesData = await servicessettings .find({});
+        const servicesData = await servicessettings.find({});
         res.render('services', {
             servicesData
         });
@@ -103,7 +139,7 @@ app.use('/services', async(req, res) => {
 //ABOUT PAGE:-
 const aboutsettings = require('./models/aboutdataSettingModel');
 
-app.use('/about', async(req, res) => {
+app.use('/about', async (req, res) => {
 
     try {
         const aboutData = await aboutsettings.find({});
@@ -123,18 +159,18 @@ app.use('/about', async(req, res) => {
 const mediasettings = require('./models/mediadataSettingModel');
 
 app.use('/media', async (req, res) => {
-    try { 
+    try {
         const mediaData = await mediasettings.find({})
 
-        res.render('media',{
+        res.render('media', {
             mediaData
-        })     
+        })
     }
     catch (error) {
         console.log(error.message);
     }
 
-})   
+})
 // SOCIAL MEDIA PAGE ENDS 
 
 
@@ -156,14 +192,14 @@ app.use('/', async (req, res) => {
         console.log(error.message);
     }
 
-}) 
+})
 // HOME PAGE ENDS
- 
+
 
 
 const port = process.env.PORT || 3000;
 
 //App is listening at this port:-
 app.listen(port, () => {
-    console.log("Server is running at port no. - "+port);
+    console.log("Server is running at port no. - " + port);
 })   

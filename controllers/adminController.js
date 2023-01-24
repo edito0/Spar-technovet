@@ -4,15 +4,65 @@ const Services = require('../models/servicesdataSettingModel');
 const Project = require('../models/projectdataSettingModel');
 const Home = require('../models/homedataSettingModel');
 const Contact = require('../models/contactdataSettingModel');
+const Media = require('../models/mediadataSettingModel');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const multer = require('multer');
 const sharp = require('sharp');
 
 const nodemailer = require('nodemailer')
-const randomstring = require('randomstring')
+const Randomstring = require('randomstring')
 
 const config = require('../config/config');
+
+
+
+const securePassword = async(password)=>{
+    try{
+        const PasswordHash = await bcrypt.hash(password,10)
+
+        return PasswordHash;
+    }
+    catch(error){
+        console.log(error.message);
+    }
+}
+
+
+const sendResetPasswordMail = async(email,token)=>{
+    try {
+        const trasnport = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true, 
+            requireTLS:true,
+            auth: { 
+              user: config.clientEmail,
+              pass: config.clientPassword
+            }
+          });  
+
+        const mailOptions = { 
+            from:config.clientEmail,
+            to:email,
+            subject:"Reset Password",
+            html:`<p> Hi Admin, Please click here to Reset your Password <a href="http://localhost:3000/admin/reset-password?token=${token}">Reset</a> </p>`
+        }
+
+        trasnport.sendMail(mailOptions, function(error,info){
+            if(error){
+                console.log(error);
+            }
+            else{
+                console.log("Email has been send",info);
+            }
+        }) 
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 
 //FORGOT PASSWORD
 const forgetPassword = async (req, res) => {
@@ -23,6 +73,65 @@ const forgetPassword = async (req, res) => {
         console.log(error.message);
     }
 }
+
+const forgetPasswordVerify = async (req, res) => {
+    try {
+        const email = req.body.email;
+
+        const clinetData = await Client.findOne({ client_email: email })
+
+        if (clinetData) {
+            const randomstring = Randomstring.generate(); 
+
+            await Client.updateOne({ client_email: email }, 
+                { $set: { token: randomstring } })
+
+            sendResetPasswordMail(clinetData.client_email,randomstring)
+            res.render('forgetpassword')
+        } 
+        else {
+            res.render('forgetpassword') 
+        } 
+  
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const resetPassword = async(req,res)=>{
+     try {
+        const token = req.query.token;
+        const tokenData = await Client.findOne({token:token});
+        if(tokenData)
+        {
+            res.render('resetpassword',{
+                client_id : tokenData._id 
+            })
+        }
+        else{
+            res.send('404');
+        }
+
+     } catch (error) {
+        console.log(error.message);
+     }
+}  
+
+
+const PostResetPassword = async(req,res)=>{
+    try {
+
+        const password = req.body.password;
+        const client_id = req.body.client_id;
+        const securePass = await securePassword(password);
+        await Client.findByIdAndUpdate({_id:client_id},{$set:{ client_password:securePass, token:""}})
+        res.redirect('/admin');
+        
+    } catch (error) {  
+        console.log(error.message);
+    } 
+}
+
 //FORGOT PASSWORD ENDS
 
 // LOGIN PAGE
@@ -287,7 +396,7 @@ const editProjects = async (req, res) => {
 const postEditProject = async (req, res) => {
 
     try {
-        var image = ''; 
+        var image = '';
         if (req.files !== undefined) {
             image = req.files.map(files => {
 
@@ -296,7 +405,7 @@ const postEditProject = async (req, res) => {
 
                 sharp(files.path).webp({ quality: 3 }).toFile(compressImgPath)
 
-                return ("/images/" + compressImg )
+                return ("/images/" + compressImg)
             });
         }
 
@@ -330,6 +439,55 @@ const deletePorjectData = async (req, res) => {
 
 }
 //PROJECT PAGE ENDS
+
+
+// MEDIA PAGE
+const editmedia = async (req, res) => {
+    try {
+        const editmedia = await Media.find({});
+        res.render('editmedia', {
+            editmedia
+        });
+
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+const postEditMedia = async (req, res) => {
+
+    try {
+
+        const media = new Media(
+            {
+                instagram_link: req.body.instagramLink,
+                pintrest_link: req.body.pintrestLink
+            }
+        );
+
+        const mediaData = await media.save();
+
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+
+    res.redirect('/admin/editmedia');
+}
+
+const deleteMediaData = async (req, res) => {
+    try {
+        await Media.deleteOne({ _id: req.body.id })
+        res.redirect('/admin/editMedia');
+    } catch (error) {
+        console.log(error.message);
+    }
+
+}
+
+
+//MEDIA PAGE ENDS
 
 
 // ANALYTICS 
@@ -366,7 +524,13 @@ module.exports = {
     postEditProject,
     deletePorjectData,
     analytics,
-    forgetPassword
+    forgetPassword,
+    editmedia,
+    postEditMedia,
+    deleteMediaData,
+    forgetPasswordVerify,
+    resetPassword,
+    PostResetPassword
 }
 
 

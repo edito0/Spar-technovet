@@ -53,7 +53,7 @@ input[type="submit"]{
      display: block;
      outline: none;
      border: none;
-     background-color: rgb(70, 147, 255);
+     background-color: var(--green);
      padding: 10px 60px;
      border-radius: 2px;
      color: white;
@@ -62,5 +62,5 @@ input[type="submit"]{
 
 
 input[type="submit"]:hover{
-     background-color: rgba(70, 147, 255, 0.9); 
+    opacity: 0.9;
 }

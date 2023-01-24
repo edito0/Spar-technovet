@@ -98,11 +98,20 @@ admin_route.get('/analytics',adminLogAuth.isLogin,adminController.analytics);
 
 
 //MEDIA PAGE
-// admin_route.get('/editmedia',adminLogAuth.isLogin,adminController.editmedia);
-//MEDIA PAGES ENDS
+admin_route.get('/editmedia',adminLogAuth.isLogin,adminController.editmedia);
+admin_route.post('/editmedia',adminLogAuth.isLogin,adminController.postEditMedia); 
+admin_route.post('/deletemediadata',adminLogAuth.isLogin,adminController.deleteMediaData);
+// MEDIA PAGES ENDS
 
 
+
+
+//FORGET PASSWORD PAGE
 admin_route.get('/forget-password',adminLogAuth.isLogout,adminController.forgetPassword);
+admin_route.post('/forget-password',adminLogAuth.isLogout,adminController.forgetPasswordVerify);
+admin_route.get('/reset-password',adminLogAuth.isLogout,adminController.resetPassword);
+admin_route.post('/reset-password',adminLogAuth.isLogout,adminController.PostResetPassword);
+//FORGET PASSWORD PAGE ENDS
 
 
 module.exports = admin_route;

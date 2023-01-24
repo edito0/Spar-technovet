@@ -75,7 +75,17 @@
                   <%= projectDetail.project_detail%>
                </p>
             </div>
+
          </div>
+
+
+         <h3>Share Project On</h3>
+         <div class="spds-1-2-2">
+            <div><a class="linkedin"><i class="fa-brands fa-linkedin-in"></i></a> </div>
+            <div><a class="facebook"><i class="fa-brands fa-facebook"></i></a> </div>
+            <div><a class="pinterest"><i class="fa-brands fa-pinterest"></i></a></div>
+        </div>
+
 
       </div>
 
@@ -147,6 +157,17 @@
 
       arrowLeft.addEventListener('click', slideRight);
 
+      // https://twitter.com/intent/tweet?text=<TEXT>&url=
+
+      const linkedin = document.querySelector('.linkedin');
+      linkedin.setAttribute("href","https://www.linkedin.com/shareArticle?mini=true&url=" + window.location);
+
+      const facebook = document.querySelector('.facebook');
+      facebook.setAttribute("href","https://www.facebook.com/sharer/sharer.php?u=" + window.location);
+
+
+      const pinterest = document.querySelector('.pinterest');
+      pinterest.setAttribute("href","http://pinterest.com/pin/create/button/?url=" + window.location);
 
    </script>
 

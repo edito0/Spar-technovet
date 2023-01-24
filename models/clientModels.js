@@ -8,6 +8,9 @@ const clientSchema = mongoose.Schema({
     client_password:{
         type:String,
         require:true
+    },
+    token:{
+        type:String
     }
 })  
 

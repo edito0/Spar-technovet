@@ -3,7 +3,7 @@
 }
 .sehs-1 {
     display: flex;
-}
+} 
 
 .sehs-1-1 {
     width: 300px;
@@ -141,7 +141,7 @@
     display: block;
     outline: none;
     border: none;
-    background-color: rgb(70, 147, 255);
+    background-color: var(--green);
     padding: 10px 60px;
     border-radius: 2px;
     color: white;
@@ -150,9 +150,9 @@
 
 
 .sehs-1-2-2>form>input[type="submit"]:hover{
-    background-color: rgba(70, 147, 255, 0.9); 
+    opacity: 0.9;
 }
-
+ 
 ::-webkit-file-upload-button {
     outline: none; 
     border: none;

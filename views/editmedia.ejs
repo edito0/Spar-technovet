@@ -1,4 +1,4 @@
-<!-- <%- include("./layouts/header2.ejs")%>
+<%- include("./layouts/header2.ejs")%>
 
   <section class="sehs-1">
 
@@ -25,17 +25,17 @@
           <i class="fa-sharp fa-solid fa-bell-concierge"></i>
           <a href="/admin/editservices">Services Page</a>
         </div>
-        
+
         <div>
           <i class="fa-brands fa-instagram"></i>
-          <a href="/admin/media">Media Page</a>
-      </div>
+          <a href="/admin/editmedia">Media Page</a>
+        </div>
 
 
         <div>
           <i class="fa-sharp fa-solid fa-chart-simple"></i>
           <a href="/admin/analytics">Analytics</a>
-      </div>
+        </div>
 
 
 
@@ -53,35 +53,35 @@
     <div class="sehs-1-2">
       <h3>MEDIA PAGE</h3>
 
-      <div class="sehs-1-2-2">
-        <form action="/admin/editabout" method="POST" enctype="multipart/form-data">
-          <label for="">Title</label>
-          <input type="text" name="title" placeholder="Enter Title">
-          <label for="">Image</label>
-          <input type="file" name="image">
-          <label for="">content</label>
-          <textarea name="content" id="" cols="30" rows="10" placeholder="Enter Content"></textarea>
+      <div class="sehs-1-2-2"> 
+        <form action="/admin/editmedia" method="POST">
+          <label for="">Instagram Link</label>
+          <input type="text" name="instagramLink" placeholder="Enter Link">
+          <label for="">Pintrest Link</label>
+          <input type="text" name="pintrestLink" placeholder="Enter Link">
           <input type="submit" value="submit">
         </form>
       </div>
 
       <div class="sehs-1-2-3">
         <ul>
-          <li class="sehs-1-2-3-heading"><p>TITLE</p><p>IMAGES</p><a></a></li>
-          <% for (var i=0; i <editabouts.length; i++ ) { %>
-            <li>
-              <p>
-                <%=editabouts[i].about_title%>
-              </p>
-              <p>
-                <%=editabouts[i].about_image%>
-              </p>
- 
-              <a href=""><i class="fa-solid fa-trash deleteData" data-id="<%=editabouts[i]._id%>"></i></a>
+          <li class="sehs-1-2-3-heading">
+            <p>INSTAGRAM LINK</p><p>PINTREST LINK</p><a></a>
+          </li>
+          <% if (editmedia.length>0) { %>
+          <li>
+            <p>
+              <%= editmedia[0].instagram_link%>
+            </p>
+            <p>
+              <%= editmedia[0].pintrest_link %>
+            </p>
 
-            </li>
+            <a href=""><i class="fa-solid fa-trash deleteData" data-id="<%=editmedia[0]._id%>"></i></a>
 
-            <%}%> 
+          </li>
+          <% } %>
+
 
         </ul>
       </div>
@@ -93,19 +93,19 @@
   <script>
 
     $(document).ready(function () {
-       $('.deleteData').click(function(){
+      $('.deleteData').click(function () {
         var postId = $(this).attr('data-id')
         var obj = $(this);
 
         $.ajax({
-          url:"/admin/deleteaboutdata",
+          url: "/admin/deletemediadata",
           type: "POST",
-          data: {id:postId}
+          data: { id: postId }
         })
-       })
+      })
     })
   </script>
 
   </body>
 
-  </html> -->
+  </html>
