@@ -32,7 +32,7 @@ app.set('views', path.join(__dirname, "./views"));
 
 //ROUTER FOR THE ADMIN PANNEL :-
 const adminRoute = require('./routes/adminRoute');
-app.use('/admin',cache("10 minutes"), adminRoute);
+app.use('/admin', adminRoute);
 
 
 

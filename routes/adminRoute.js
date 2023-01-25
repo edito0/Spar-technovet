@@ -63,7 +63,7 @@ const adminController = require('../controllers/adminController');
  
 
 // LOGIN LOGOUT PAGE
-admin_route.get('/',adminLogAuth.isLogout,cache("10 minutes"),adminController.login);
+admin_route.get('/',adminLogAuth.isLogout,adminController.login);
 admin_route.get('/logout',adminLogAuth.isLogin,adminController.logout);
 admin_route.post('/',adminController.loginSave);
 // LOGIN LOGOUT ENDS
@@ -110,9 +110,9 @@ admin_route.post('/deletemediadata',adminLogAuth.isLogin,adminController.deleteM
 
 
 //FORGET PASSWORD PAGE
-admin_route.get('/forget-password',adminLogAuth.isLogout,cache("10 minutes"),adminController.forgetPassword);
+admin_route.get('/forget-password',adminLogAuth.isLogout,adminController.forgetPassword);
 admin_route.post('/forget-password',adminLogAuth.isLogout,adminController.forgetPasswordVerify);
-admin_route.get('/reset-password',adminLogAuth.isLogout,cache("10 minutes"),adminController.resetPassword);
+admin_route.get('/reset-password',adminLogAuth.isLogout,adminController.resetPassword);
 admin_route.post('/reset-password',adminLogAuth.isLogout,adminController.PostResetPassword);
 //FORGET PASSWORD PAGE ENDS
 
@@ -124,4 +124,4 @@ module.exports = admin_route;
 
 
 
- 
+  
