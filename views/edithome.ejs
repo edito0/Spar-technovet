@@ -58,7 +58,7 @@
           <input type="file" name="image">
           <input type="submit" value="submit">
         </form>
-      </div>
+      </div>       
 
       <div class="sehs-1-2-3">
         <ul>
@@ -75,7 +75,7 @@
 
         </ul>
       </div>
-
+ 
     </div>
 
   </section> 
@@ -90,10 +90,7 @@
         $.ajax({
           url:"/admin/deletehomedata",
           type: "POST",
-          data: {id:postId} ,
-          success:function(){
-            $(obj).parent().parent().remove();
-          }
+          data: {id:postId}
         })
        })
     })

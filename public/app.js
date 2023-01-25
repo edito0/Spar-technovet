@@ -20,7 +20,7 @@ function preloadImages(img){
 }
 
 
-const imgOptions ={};
+const imgOptions = {};
 
 
 const imgObserver = new IntersectionObserver((entries,imgObserver)=>{

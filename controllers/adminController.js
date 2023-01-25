@@ -19,6 +19,7 @@ dotenv.config({ path: './config/config.env' });
 
 
 
+
 const securePassword = async (password) => {
     try {
         const PasswordHash = await bcrypt.hash(password, 10)
@@ -35,7 +36,7 @@ const sendResetPasswordMail = async (email, token) => {
     try {
         const trasnport = nodemailer.createTransport({
             host: "smtp.gmail.com",
-            port: 465, 
+            port: 465,
             secure: true,
             requireTLS: true,
             auth: {
@@ -199,13 +200,13 @@ const logout = async (req, res) => {
 // HOME PAGE
 const editHome = async (req, res) => {
     try {
-        const edithomes = await Home.find({});
+        const edithomes = await Home.find({}); 
         res.render('edithome', {
             edithomes
         });
-
+ 
     }
-    catch (error) {
+    catch (error) { 
         console.log(error.message);
     }
 }
@@ -223,7 +224,7 @@ const postEditHome = async (req, res) => {
         const home = new Home(
             {
                 home_image: image
-            }
+            } 
         );
 
         const homeData = await home.save();
@@ -234,7 +235,7 @@ const postEditHome = async (req, res) => {
     }
 
     res.redirect('/admin/edithome');
-}
+} 
 
 const deleteHomeData = async (req, res) => {
     try {
@@ -253,7 +254,7 @@ const deleteHomeData = async (req, res) => {
 }
 // HOME PAGE ENDS 
 
-
+ 
 
 
 

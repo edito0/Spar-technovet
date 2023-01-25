@@ -13,10 +13,10 @@ dotenv.config({ path: './config/config.env' });
 
 const DB = process.env.DATABASE;
 
-// DATABASE= mongodb+srv://spartechnovetpvtltd2023:puJgN8SuEAbnCqb1@sparwebdata.fsuedyd.mongodb.net/?retryWrites=true&w=majority 
+// DATABASE= mongodb+srv://spartechnovetpvtltd2023:puJgN8SuEAbnCqb1@sparwebdata.fsuedyd.mongodb.net/?retryWrites=true&w=majority  
 
 mongoose.set("strictQuery", false);
-mongoose.connect(DB, { useNewUrlParser: true });
+mongoose.connect(DB, { useNewUrlParser: true }); 
 
 const app = express();
 
@@ -27,9 +27,9 @@ app.use(express.static(path.join(__dirname, "./public")));
 
 
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs'); 
 app.set('views', path.join(__dirname, "./views"));
-
+ 
 //ROUTER FOR THE ADMIN PANNEL :-
 const adminRoute = require('./routes/adminRoute');
 app.use('/admin', adminRoute);
