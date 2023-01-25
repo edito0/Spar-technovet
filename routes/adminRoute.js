@@ -3,17 +3,18 @@ const path = require('path');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const dotenv = require('dotenv');
 
 
 const admin_route = express();
 
 
-// SESSION
+// SESSION  
 const session = require('express-session');
-const config = require('../config/config.js');
+dotenv.config({ path: './config/config.env' }); 
 
 admin_route.use(session({
-    secret:config.sessionSecret,
+    secret:process.env.sessionSecret,
     resave:true, 
     saveUninitialized:true
                               

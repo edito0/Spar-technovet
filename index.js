@@ -3,11 +3,10 @@ const dotenv = require('dotenv');
 
 const path = require('path');
 const ejs = require('ejs');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose');  
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer')
 
-const config = require('./config/config.js');
 dotenv.config({ path: './config/config.env' });
 
 const DB = process.env.DATABASE;
@@ -53,14 +52,14 @@ app.post('/postcontact', async (req, res) => {
             secure: true,
             requireTLS: true,
             auth: {
-                user: config.clientEmail, 
-                pass: config.clientPassword
+                user: process.env.clientEmail, 
+                pass: process.env.clientPassword
             }
         });
 
         const mailOptions = {
-            from: config.clientEmail,
-            to: config.clientEmail,
+            from: process.env.clientEmail,
+            to: process.env.clientEmail,
             subject: `${req.body.name} want to contact you`,
             html: `<p>Name - ${req.body.name}</p> </br>
                    <p>Email - ${req.body.email} </p> </br>
@@ -148,7 +147,7 @@ app.use('/about', async (req, res) => {
         });
 
     }
-    catch (error) {
+    catch (error) { 
         console.log(error.message);
     }
 })

@@ -90,7 +90,10 @@
         $.ajax({
           url:"/admin/deletehomedata",
           type: "POST",
-          data: {id:postId}
+          data: {id:postId} ,
+          success:function(){
+            $(obj).parent().parent().remove();
+          }
         })
        })
     })
@@ -98,4 +101,4 @@
 
   </body>
 
-  </html>
+  </html> 

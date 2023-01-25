@@ -9,54 +9,56 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const multer = require('multer');
 const sharp = require('sharp');
+const fs = require('fs');
 
 const nodemailer = require('nodemailer')
 const Randomstring = require('randomstring')
 
-const config = require('../config/config');
+const dotenv = require('dotenv');
+dotenv.config({ path: './config/config.env' });
 
 
 
-const securePassword = async(password)=>{
-    try{
-        const PasswordHash = await bcrypt.hash(password,10)
+const securePassword = async (password) => {
+    try {
+        const PasswordHash = await bcrypt.hash(password, 10)
 
         return PasswordHash;
     }
-    catch(error){
+    catch (error) {
         console.log(error.message);
     }
 }
 
 
-const sendResetPasswordMail = async(email,token)=>{
+const sendResetPasswordMail = async (email, token) => {
     try {
         const trasnport = nodemailer.createTransport({
             host: "smtp.gmail.com",
-            port: 465,
-            secure: true, 
-            requireTLS:true,
-            auth: { 
-              user: config.clientEmail,
-              pass: config.clientPassword
+            port: 465, 
+            secure: true,
+            requireTLS: true,
+            auth: {
+                user: process.env.clientEmail,
+                pass: process.env.clientPassword
             }
-          });  
+        });
 
-        const mailOptions = { 
-            from:config.clientEmail,
-            to:email,
-            subject:"Reset Password",
-            html:`<p> Hi Admin, Please click here to Reset your Password <a href="http://localhost:3000/admin/reset-password?token=${token}">Reset</a> </p>`
+        const mailOptions = {
+            from: process.env.clientEmail,
+            to: email,
+            subject: "Reset Password",
+            html: `<p> Hi Admin, Please click here to Reset your Password <a href="http://localhost:3000/admin/reset-password?token=${token}">Reset</a> </p>`
         }
 
-        trasnport.sendMail(mailOptions, function(error,info){
-            if(error){
+        trasnport.sendMail(mailOptions, function (error, info) {
+            if (error) {
                 console.log(error);
             }
-            else{
-                console.log("Email has been send",info);
+            else {
+                console.log("Email has been send", info);
             }
-        }) 
+        })
 
     } catch (error) {
         console.log(error.message);
@@ -81,55 +83,54 @@ const forgetPasswordVerify = async (req, res) => {
         const clinetData = await Client.findOne({ client_email: email })
 
         if (clinetData) {
-            const randomstring = Randomstring.generate(); 
+            const randomstring = Randomstring.generate();
 
-            await Client.updateOne({ client_email: email }, 
+            await Client.updateOne({ client_email: email },
                 { $set: { token: randomstring } })
 
-            sendResetPasswordMail(clinetData.client_email,randomstring)
+            sendResetPasswordMail(clinetData.client_email, randomstring)
             res.render('forgetpassword')
-        } 
+        }
         else {
-            res.render('forgetpassword') 
-        } 
-  
+            res.render('forgetpassword')
+        }
+
     } catch (error) {
         console.log(error.message);
     }
 }
 
-const resetPassword = async(req,res)=>{
-     try {
+const resetPassword = async (req, res) => {
+    try {
         const token = req.query.token;
-        const tokenData = await Client.findOne({token:token});
-        if(tokenData)
-        {
-            res.render('resetpassword',{
-                client_id : tokenData._id 
+        const tokenData = await Client.findOne({ token: token });
+        if (tokenData) {
+            res.render('resetpassword', {
+                client_id: tokenData._id
             })
         }
-        else{
+        else {
             res.send('404');
         }
 
-     } catch (error) {
+    } catch (error) {
         console.log(error.message);
-     }
-}  
+    }
+}
 
 
-const PostResetPassword = async(req,res)=>{
+const PostResetPassword = async (req, res) => {
     try {
 
         const password = req.body.password;
         const client_id = req.body.client_id;
         const securePass = await securePassword(password);
-        await Client.findByIdAndUpdate({_id:client_id},{$set:{ client_password:securePass, token:""}})
+        await Client.findByIdAndUpdate({ _id: client_id }, { $set: { client_password: securePass, token: "" } })
         res.redirect('/admin');
-        
-    } catch (error) {  
+
+    } catch (error) {
         console.log(error.message);
-    } 
+    }
 }
 
 //FORGOT PASSWORD ENDS
@@ -211,15 +212,12 @@ const editHome = async (req, res) => {
 
 const postEditHome = async (req, res) => {
     try {
-
-        let compressImg = Date.now() + '-' + req.file.originalname;
-        let compressImgPath = path.join(__dirname, "../public/images", compressImg);
-
+        let compressImgPath = path.join(__dirname, "../public/images", req.file.filename);
         sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
 
         var image = '';
         if (req.file.filename !== undefined) {
-            image = "/images/" + compressImg;
+            image = req.file.filename;
         }
 
         const home = new Home(
@@ -240,7 +238,13 @@ const postEditHome = async (req, res) => {
 
 const deleteHomeData = async (req, res) => {
     try {
+
+
+        const homeData = await Home.findOne({ _id: req.body.id });
+        fs.unlink(path.join(__dirname, "../public/images", homeData.home_image), () => { });
+        fs.unlink(path.join(__dirname, "../public/images/original-img", homeData.home_image), () => { });
         await Home.deleteOne({ _id: req.body.id })
+
         res.redirect('/admin/edithome');
     } catch (error) {
         console.log(error.message);
@@ -271,14 +275,13 @@ const editAbout = async (req, res) => {
 const postEditAbout = async (req, res) => {
 
     try {
-        let compressImg = Date.now() + '-' + req.file.originalname;
-        let compressImgPath = path.join(__dirname, "../public/images", compressImg);
+        let compressImgPath = path.join(__dirname, "../public/images", req.file.filename);
 
         sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
 
         var image = '';
         if (req.file.filename !== undefined) {
-            image = "/images/" + compressImg;
+            image = req.file.filename;
         }
 
         const about = new About(
@@ -301,6 +304,10 @@ const postEditAbout = async (req, res) => {
 
 const deleteAboutData = async (req, res) => {
     try {
+
+        const aboutData = await About.findOne({ _id: req.body.id });
+        fs.unlink(path.join(__dirname, "../public/images", aboutData.about_image), () => { });
+        fs.unlink(path.join(__dirname, "../public/images/original-img", aboutData.about_image), () => { });
         await About.deleteOne({ _id: req.body.id })
         res.redirect('/admin/editabout');
     } catch (error) {
@@ -321,14 +328,13 @@ const deleteAboutData = async (req, res) => {
 const postEditServices = async (req, res) => {
 
     try {
-        let compressImg = Date.now() + '-' + req.file.originalname;
-        let compressImgPath = path.join(__dirname, "../public/images", compressImg);
+        let compressImgPath = path.join(__dirname, "../public/images", req.file.filename);
 
         sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
 
         var image = '';
         if (req.file.filename !== undefined) {
-            image = "/images/" + compressImg;
+            image = req.file.filename;
         }
 
         const services = new Services(
@@ -351,6 +357,10 @@ const postEditServices = async (req, res) => {
 
 const deleteServicesData = async (req, res) => {
     try {
+
+        const serviceData = await Services.findOne({ _id: req.body.id });
+        fs.unlink(path.join(__dirname, "../public/images", serviceData.services_image), () => { });
+        fs.unlink(path.join(__dirname, "../public/images/original-img", serviceData.services_image), () => { });
         await Services.deleteOne({ _id: req.body.id })
         res.redirect('/admin/editservices');
     } catch (error) {
@@ -400,12 +410,11 @@ const postEditProject = async (req, res) => {
         if (req.files !== undefined) {
             image = req.files.map(files => {
 
-                let compressImg = Date.now() + '-' + files.originalname;
-                let compressImgPath = path.join(__dirname, "../public/images", compressImg);
+                let compressImgPath = path.join(__dirname, "../public/images", files.filename);
 
                 sharp(files.path).webp({ quality: 3 }).toFile(compressImgPath)
 
-                return ("/images/" + compressImg)
+                return (files.filename)
             });
         }
 
@@ -431,12 +440,18 @@ const postEditProject = async (req, res) => {
 
 const deletePorjectData = async (req, res) => {
     try {
+        const projectData = await Project.findOne({ _id: req.body.id });
+
+        projectData.project_image.map(images => {
+            fs.unlink(path.join(__dirname, "../public/images", images), () => { });
+            fs.unlink(path.join(__dirname, "../public/images/original-img", images), () => { });
+        })
         await Project.deleteOne({ _id: req.body.id })
         res.redirect('/admin/editproject');
     } catch (error) {
         console.log(error.message);
     }
-
+ 
 }
 //PROJECT PAGE ENDS
 

@@ -6,7 +6,7 @@
       <div class="spds-1-1">
          <div class="spds-1-1-1">
             <% for (var i=0; i <projectDetail.project_image.length; i++ ) { %>
-               <img src="<%= projectDetail.project_image[i]%>" class="spds-1-1-1-img" alt="">
+               <img data-src="<%= projectDetail.project_image[i]%>" class="spds-1-1-1-img" alt="">
                <%}%>
          </div>
 
@@ -33,7 +33,7 @@
          <div class="small_gallery">
             <div class="gallery-img-container">
                <% for (var i=0; i <projectDetail.project_image.length; i++ ) { %>
-                  <img src="<%= projectDetail.project_image[i]%>" class="small_gallery-img" alt="">
+                  <img data-src="<%= projectDetail.project_image[i]%>" class="small_gallery-img" alt="">
                   <%}%>
             </div>
          </div>
