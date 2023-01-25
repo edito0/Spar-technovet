@@ -6,6 +6,8 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');  
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer')
+var cacheService = require("express-api-cache");
+var cache = cacheService.cache;
 
 dotenv.config({ path: './config/config.env' });
 
@@ -30,13 +32,13 @@ app.set('views', path.join(__dirname, "./views"));
 
 //ROUTER FOR THE ADMIN PANNEL :-
 const adminRoute = require('./routes/adminRoute');
-app.use('/admin', adminRoute);
+app.use('/admin',cache("10 minutes"), adminRoute);
 
 
 
 
 //CONTACT PAGE
-app.use('/contact', (req, res) => {
+app.use('/contact',cache("10 minutes"), (req, res) => {
     res.render('contact');
 })
 
@@ -115,7 +117,7 @@ app.use('/projects', projectRoute);
 //SERVICES PAGE:-
 const servicessettings = require('./models/servicesdataSettingModel');
 
-app.use('/services', async (req, res) => {
+app.use('/services',cache("10 minutes"), async (req, res) => {
 
     try {
         const servicesData = await servicessettings.find({});
@@ -138,7 +140,7 @@ app.use('/services', async (req, res) => {
 //ABOUT PAGE:-
 const aboutsettings = require('./models/aboutdataSettingModel');
 
-app.use('/about', async (req, res) => {
+app.use('/about',cache("10 minutes"), async (req, res) => {
 
     try {
         const aboutData = await aboutsettings.find({});
@@ -157,7 +159,7 @@ app.use('/about', async (req, res) => {
 // SOCIAL MEDIA PAGE:-
 const mediasettings = require('./models/mediadataSettingModel');
 
-app.use('/media', async (req, res) => {
+app.use('/media',cache("10 minutes"), async (req, res) => {
     try {
         const mediaData = await mediasettings.find({})
 
@@ -178,7 +180,7 @@ app.use('/media', async (req, res) => {
 // HOME PAGE:-
 const homesettings = require('./models/homedataSettingModel');
 
-app.use('/', async (req, res) => {
+app.use('/',cache("10 minutes"), async (req, res) => {
     try {
         const homeData = await homesettings.find({})
         res.render('home', {

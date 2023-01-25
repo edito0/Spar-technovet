@@ -3,6 +3,8 @@ const path = require('path');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+var cacheService = require("express-api-cache");
+var cache = cacheService.cache;
 
 
 const project_route = express();
@@ -26,8 +28,8 @@ const projectController = require('../controllers/projectController');
 
 
 
-project_route.get('/',projectController.project);
-project_route.get('/:id',projectController.projectDetial);
+project_route.get('/',cache("10 minutes"),projectController.project);
+project_route.get('/:id',cache("10 minutes"),projectController.projectDetial);
 
 
 
