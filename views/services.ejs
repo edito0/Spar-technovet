@@ -1,33 +1,32 @@
 <%- include("./layouts/header.ejs")%>
 
-<h1 class="page_heading">Services </h1>
-    <section class="sas-1">
+<h1 class="page_heading">Our Services </h1>
+    <section class="sss-1"> 
 
         <%for(var i =0; i< servicesData.length;i++){%>
-            <div class="sas-1-1">
-                <div class="sas-1-1-1">
-                    <img data-src="/images/<%=servicesData[i].services_image%>" alt="img">
+            <div class="sss-1-1">
+                <div class="sss-1-1-1">
+                    <img data-src="/images/<%=servicesData[i].services_image%>" alt="<%=servicesData[i].services_image%>">
                 </div>
-    
-                <div class="sas-1-1-2"> 
+     
+                <div class="sss-1-1-2"> 
                     <h1><%=servicesData[i].services_title%></h1>
-                    <p><%=servicesData[i].services_content%></p>
+                    <p><%-servicesData[i].services_content%></p>
                 </div>
             </div>
         <%}%>
-        <div class="band"></div>
+ 
 
-
-    </section>
-
+    </section> 
+ 
 
             <script>
 
-             const section_element0 = document.querySelectorAll('.sas-1-1-1');
-            const section_element1 = document.querySelectorAll('.sas-1-1-2');
-            window.addEventListener('scroll', () => {
+             const section_element0 = document.querySelectorAll('.sss-1-1-1');
+            const section_element1 = document.querySelectorAll('.sss-1-1-2');
+            window.addEventListener('scroll', () => { 
                 
-                const screenPosition = window.innerHeight;
+                const screenPosition = window.innerHeight; 
                 
                 section_element0.forEach(e => {
                     const contentHeight = e.getBoundingClientRect().top;
@@ -38,7 +37,7 @@
                 section_element1.forEach(e => {
                     const contentHeight = e.getBoundingClientRect().top;
                     if (contentHeight < screenPosition) {
-                        e.classList.add('active');
+                        e.classList.add('active'); 
                     }
                 })
             });

@@ -12,11 +12,6 @@
         </div>
 
         <div>
-          <i class="fa-sharp fa-solid fa-address-card"></i>
-          <a href="/admin/editabout">About Page</a>
-        </div>
-
-        <div>
           <i class="fa-sharp fa-solid fa-diagram-project"></i>
           <a href="/admin/editprojects">Project Page</a>
         </div>
@@ -26,7 +21,12 @@
           <a href="/admin/editservices">Services Page</a>
         </div>
 
-        
+        <div>
+          <i class="fa-sharp fa-solid fa-address-card"></i>
+          <a href="/admin/editabout">About Page</a>
+        </div>
+
+
         <div>
           <i class="fa-brands fa-instagram"></i>
           <a href="/admin/editmedia">Media Page</a>
@@ -34,7 +34,7 @@
 
         <div>
           <i class="fa-sharp fa-solid fa-chart-simple"></i>
-          <a href="/admin/analytics">Analytics</a>
+          <a href="/admin/analytics">Contact/Analytics</a>
       </div>
 
 
@@ -59,8 +59,20 @@
           <input type="text" name="title" placeholder="Enter Title">
           <label for="">Image</label> 
           <input type="file" name="image" multiple>
-          <label for="">Project Location</label>
-          <textarea name="detail" id="" cols="30" rows="10" placeholder="Enter Content"></textarea>
+
+          <label for="">Project Scope</label> 
+          <input type="text" name="scope" >
+
+          <label for="">Project Location</label> 
+          <input type="text" name="location" >
+
+          <label for="">Project Photographer</label> 
+          <input type="text" name="photographer" >
+          
+          <label for="">Project Featured in</label> 
+          <input type="text" name="featuredin" >
+
+        
           <label for="">Content</label>
           <textarea name="content" id="" cols="30" rows="10" placeholder="Enter Content"></textarea>
           <input type="submit" value="submit">
@@ -69,16 +81,14 @@
 
       <div class="sehs-1-2-3">
         <ul>
-          <li class="sehs-1-2-3-heading"><p>TITLE</p><p>IMAGES</p><p>CONTENT</p><a></a></li>
+          <li class="sehs-1-2-3-heading"><p>IMAGES</p><p>TITLE</p><p>CONTENT</p><a></a></li>
           <% for (var i=0; i <editprojects.length; i++ ) { %>
-            <li>
-              <p>
+            <li class="text-closed">
+              <img data-src="/images/<%= editprojects[i].project_image[0] %>" alt="<%= editprojects[i].project_image[0] %>">
+              <p> 
                 <%=editprojects[i].project_title%>
               </p> 
-              <p> 
-                <%= editprojects[i].project_image %>
-              </p>
-              <p> 
+              <p>  
                 <%= editprojects[i].project_content %>
               </p>
               <a href=""><i class="fa-solid fa-trash deleteData" data-id="<%=editprojects[i]._id%>"></i></a>
@@ -94,6 +104,14 @@
   </section>
 
   <script>
+
+const focustext = document.querySelectorAll('.text-closed');
+    focustext.forEach((e)=>{
+         e.addEventListener('click',()=>{
+           e.classList.toggle('text-active');
+         });
+    })
+  
 
     $(document).ready(function () {
        $('.deleteData').click(function(){

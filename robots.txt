@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /links/
+Disallow: /host/
+Disallow: /events/
+Disallow: /alerts/
+Disallow: /settings/
+Disallow: /backup/
+Disallow: /help-hosted/

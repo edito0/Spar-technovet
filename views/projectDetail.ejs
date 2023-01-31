@@ -4,21 +4,19 @@
    <section class="spds-1">
      
       <div class="spds-1-1">
-         <div class="spds-1-1-1">
+         <div class="spds-1-1-1"> 
             <% for (var i=0; i <projectDetail.project_image.length; i++ ) { %>
-               <img data-src="<%= projectDetail.project_image[i]%>" class="spds-1-1-1-img" alt="">
+               <img data-src="/images/<%= projectDetail.project_image[i]%>" class="spds-1-1-1-img" alt="<%= projectDetail.project_image[i]%>">
                <%}%>
-         </div>
-
-
-
+         </div> 
+ 
          <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg" class="a-left">
             <g opacity="0.9">
                <circle cx="27.5" cy="27.5" r="27.5" transform="rotate(-180 27.5 27.5)" fill="#D9D9D9" />
                <path
                   d="M9.93934 26.9393C9.35355 27.5251 9.35355 28.4749 9.93934 29.0607L19.4853 38.6066C20.0711 39.1924 21.0208 39.1924 21.6066 38.6066C22.1924 38.0208 22.1924 37.0711 21.6066 36.4853L13.1213 28L21.6066 19.5147C22.1924 18.9289 22.1924 17.9792 21.6066 17.3934C21.0208 16.8076 20.0711 16.8076 19.4853 17.3934L9.93934 26.9393ZM45 26.5L11 26.5L11 29.5L45 29.5L45 26.5Z"
                   fill="black" />
-            </g>
+            </g>  
          </svg>
 
          <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg" class="a-right">
@@ -30,10 +28,10 @@
             </g>
          </svg>
 
-         <div class="small_gallery">
+         <div class="small_gallery"> 
             <div class="gallery-img-container">
                <% for (var i=0; i <projectDetail.project_image.length; i++ ) { %>
-                  <img data-src="<%= projectDetail.project_image[i]%>" class="small_gallery-img" alt="">
+                  <img data-src="/images/<%= projectDetail.project_image[i]%>" class="small_gallery-img" alt="<%= projectDetail.project_image[i]%>">
                   <%}%>
             </div>
          </div>
@@ -46,7 +44,7 @@
             <%= projectDetail.project_title%>
          </h1>
          <p>
-            <%= projectDetail.project_content%>
+            <%- projectDetail.project_content%>
          </p>
 
          <div class="spds-1-2-3">
@@ -54,36 +52,36 @@
             <div class="spds-1-2-3-1">
                <p>Scope:</p>
                <p>
-                  <%= projectDetail.project_detail%>
+                  <%- projectDetail.scope%>
                </p>
             </div>
             <div class="spds-1-2-3-1">
                <p>Location:</p>
                <p>
-                  <%= projectDetail.project_detail%>
+                  <%- projectDetail.location%>
                </p>
             </div>
             <div class="spds-1-2-3-1">
                <p>Photographer: </p>
                <p>
-                  <%= projectDetail.project_detail%>
+                  <%- projectDetail.photographer%>
                </p>
             </div>
-            <div class="spds-1-2-3-1">
+            <div class="spds-1-2-3-1"> 
                <p>Featured In:</p>
                <p>
-                  <%= projectDetail.project_detail%>
+                  <%- projectDetail.featuredin%>
                </p>
             </div>
-
+ 
          </div>
 
 
          <h3>Share Project On</h3>
          <div class="spds-1-2-2">
-            <div><a class="linkedin"><i class="fa-brands fa-linkedin-in"></i></a> </div>
-            <div><a class="facebook"><i class="fa-brands fa-facebook"></i></a> </div>
-            <div><a class="pinterest"><i class="fa-brands fa-pinterest"></i></a></div>
+            <div><a class="linkedin" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a> </div>
+            <div><a class="facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a> </div>
+            <div><a class="pinterest" target="_blank"><i class="fa-brands fa-pinterest"></i></a></div>
         </div>
 
 
@@ -150,7 +148,21 @@
       const slideRight = () => {
 
          if (x < 0) {
+
             image_container.style.transform = `translateX(${x + 100}%)`;
+            x = x + 100; 
+
+            smallGalleryContainer.style.transform = `translateX(${y + 132}px)`;
+             y = y + 132; 
+
+
+             smallGalleryImg.forEach(e=>{
+             e.style.opacity = '1';
+             })
+
+             i--;
+             smallGalleryImg[i].style.opacity = '0.6'; 
+
          }
 
       }
@@ -160,16 +172,37 @@
       // https://twitter.com/intent/tweet?text=<TEXT>&url=
 
       const linkedin = document.querySelector('.linkedin');
-      linkedin.setAttribute("href","https://www.linkedin.com/shareArticle?mini=true&url=" + window.location);
+      linkedin.setAttribute("href","https://www.linkedin.com/shareArticle?mini=true&url="+"https://www.spartechnovet.com" +  image_container_images[0].getAttribute('data-src'));
 
       const facebook = document.querySelector('.facebook');
-      facebook.setAttribute("href","https://www.facebook.com/sharer/sharer.php?u=" + window.location);
+      facebook.setAttribute("href","https://www.facebook.com/sharer/sharer.php?u=" + "https://www.spartechnovet.com" +  image_container_images[0].getAttribute('data-src'));
 
 
       const pinterest = document.querySelector('.pinterest');
-      pinterest.setAttribute("href","http://pinterest.com/pin/create/button/?url=" + window.location);
+      pinterest.setAttribute("href","http://pinterest.com/pin/create/button/?url=" + "https://www.spartechnovet.com" +  image_container_images[0].getAttribute('data-src'));
 
-   </script>
 
+
+
+
+      for (let index = 0; index < smallGalleryImg.length; index++) {
+         smallGalleryImg[index].addEventListener('click',()=>{
+               image_container.style.transform = `translateX(${-100*index}%)`;
+               x = -100*index; 
+               y = -132*index; 
+               i = index ; 
+               smallGalleryImg.forEach(e=>{
+                  e.style.opacity = '1';
+               })
+               
+               smallGalleryImg[index].style.opacity = '0.6';
+            })
+         
+      }
+      
+       
+
+   </script>   
+ 
 
    <%- include("./layouts/footer.ejs")%>

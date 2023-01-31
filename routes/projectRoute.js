@@ -22,17 +22,17 @@ project_route.set('views','./views');
 
 
 
-// PROJECT CONTROLER 
+// PROJECT CONTROLER  
 const projectController = require('../controllers/projectController');
 // PORJECT CONTROLER ENDS
 
 
 
-project_route.get('/',cache("10 minutes"),projectController.project);
-project_route.get('/:id',cache("10 minutes"),projectController.projectDetial);
+project_route.get('/',cache("9 minutes"),projectController.project);
+project_route.get('/:id',cache("9 minutes"),projectController.projectDetial);
 
 
-
+ 
 
 module.exports = project_route ;
  

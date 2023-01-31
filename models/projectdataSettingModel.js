@@ -13,10 +13,22 @@ const projectSettingSchema = mongoose.Schema({
         type:String,
         require:true
     },
-    project_detail:{
+    scope:{
         type:String,
         require:true
-    } 
+    }, 
+    location:{
+        type:String,
+        require:true
+    }, 
+    photographer:{
+        type:String,
+        require:true
+    },  
+    featuredin:{
+        type:String,
+        require:true
+    }  
 }) 
 
 

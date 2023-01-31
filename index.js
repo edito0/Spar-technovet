@@ -13,8 +13,6 @@ dotenv.config({ path: './config/config.env' });
 
 const DB = process.env.DATABASE;
 
-// DATABASE= mongodb+srv://spartechnovetpvtltd2023:puJgN8SuEAbnCqb1@sparwebdata.fsuedyd.mongodb.net/?retryWrites=true&w=majority  
-
 mongoose.set("strictQuery", false);
 mongoose.connect(DB, { useNewUrlParser: true }); 
 
@@ -29,7 +27,7 @@ app.use(express.static(path.join(__dirname, "./public")));
 
 app.set('view engine', 'ejs'); 
 app.set('views', path.join(__dirname, "./views"));
- 
+  
 //ROUTER FOR THE ADMIN PANNEL :-
 const adminRoute = require('./routes/adminRoute');
 app.use('/admin', adminRoute);
@@ -38,8 +36,15 @@ app.use('/admin', adminRoute);
 
 
 //CONTACT PAGE
-app.use('/contact',cache("10 minutes"), (req, res) => {
-    res.render('contact');
+
+const Analytics = require('./models/anylaticsdataSettingModel');
+
+app.use('/contact',cache("9 minutes"), async(req, res) => { 
+
+    const analytics = await Analytics.findOne({});
+    res.render('contact',{
+        analytics  
+    });
 })
 
 const contactsettings = require('./models/contactdataSettingModel');
@@ -47,9 +52,9 @@ const contactsettings = require('./models/contactdataSettingModel');
 app.post('/postcontact', async (req, res) => {
 
     try {
-
+ 
         const trasnport = nodemailer.createTransport({
-            host: "smtp.gmail.com",
+            host: "smtp.gmail.com", 
             port: 465,
             secure: true,
             requireTLS: true,
@@ -74,7 +79,7 @@ app.post('/postcontact', async (req, res) => {
             if (error) {
                 console.log(error);
             }
-            else {
+            else { 
                 console.log("Email has been send", info);
             }
         })
@@ -88,7 +93,7 @@ app.post('/postcontact', async (req, res) => {
                 message: req.body.message,
 
             }
-        );
+        ); 
 
         const contactData = await contact.save();
 
@@ -105,7 +110,7 @@ app.post('/postcontact', async (req, res) => {
 
 
 
-
+ 
 //PROEJCT PAGE 
 const projectRoute = require('./routes/projectRoute');
 app.use('/projects', projectRoute);
@@ -114,15 +119,17 @@ app.use('/projects', projectRoute);
 
 
 
-//SERVICES PAGE:-
+//SERVICES PAGE:- 
 const servicessettings = require('./models/servicesdataSettingModel');
 
-app.use('/services',cache("10 minutes"), async (req, res) => {
+app.use('/services',cache("9 minutes"), async (req, res) => {
 
     try {
         const servicesData = await servicessettings.find({});
+        const analytics = await Analytics.findOne({});
         res.render('services', {
-            servicesData
+            servicesData,
+            analytics
         });
 
     }
@@ -140,12 +147,14 @@ app.use('/services',cache("10 minutes"), async (req, res) => {
 //ABOUT PAGE:-
 const aboutsettings = require('./models/aboutdataSettingModel');
 
-app.use('/about',cache("10 minutes"), async (req, res) => {
+app.use('/about',cache("9 minutes"), async (req, res) => {
 
     try {
         const aboutData = await aboutsettings.find({});
+        const analytics = await Analytics.findOne({});
         res.render('about', {
-            aboutData
+            aboutData,
+            analytics
         });
 
     }
@@ -156,22 +165,27 @@ app.use('/about',cache("10 minutes"), async (req, res) => {
 // ABOUT PAGE ENDS
 
 
-// SOCIAL MEDIA PAGE:-
+// SOCIAL MEDIA PAGE:- 
 const mediasettings = require('./models/mediadataSettingModel');
+const articlesettings = require('./models/mediadataarticleSettingModel');
 
-app.use('/media',cache("10 minutes"), async (req, res) => {
-    try {
+app.use('/media',cache("9 minutes"), async (req, res) => {
+    try { 
         const mediaData = await mediasettings.find({})
-
+        const articleData = await articlesettings.find({})
+        const analytics = await Analytics.findOne({});
+        
         res.render('media', {
-            mediaData
+            mediaData,
+            articleData,
+            analytics
         })
     }
     catch (error) {
         console.log(error.message);
     }
 
-})
+}) 
 // SOCIAL MEDIA PAGE ENDS 
 
 
@@ -180,21 +194,22 @@ app.use('/media',cache("10 minutes"), async (req, res) => {
 // HOME PAGE:-
 const homesettings = require('./models/homedataSettingModel');
 
-app.use('/',cache("10 minutes"), async (req, res) => {
+app.use('/', async (req, res) => {
     try {
+        const analytics = await Analytics.findOne({});
         const homeData = await homesettings.find({})
         res.render('home', {
-            homeData
+            homeData,
+            analytics
         });
-
-
-    }
+   
+    } 
     catch (error) {
         console.log(error.message);
     }
 
-})
-// HOME PAGE ENDS
+}) 
+// HOME PAGE ENDS 
 
 
 
@@ -203,4 +218,4 @@ const port = process.env.PORT || 3000;
 //App is listening at this port:-
 app.listen(port, () => {
     console.log("Server is running at port no. - " + port);
-})   
+})    

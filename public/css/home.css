@@ -22,7 +22,7 @@ font-family: 'Lavishly Yours', cursive;
 font-family: 'Roboto', sans-serif; */
 
  
-:root{
+:root{ 
     --light:#ffffff;
     --green:#1E443E;
     --dark:#232323;
@@ -63,8 +63,17 @@ html {
     transition: all 0.9s ease;
 }
 
-.nav_logo>svg {
-    height: 60px;
+.nav_logo {
+   width: 200px;
+   height: 63px;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.nav_logo>svg { 
+    height: 50px;
 }
 
 .nav_items>ul {
@@ -81,17 +90,23 @@ html {
     text-decoration: none;
     display: block;
     padding: 10px 20px;
-    color: var(--dark)
+    color: var(--dark);
+    transition: all 0.3s ease-in-out;
+}
+
+.nav_email{
+    width: 200px;
 }
 
 .nav_email>a {
+    text-align: center;
     text-decoration: none;
     display: block;
     color:var(--dark);
 }
 
 .nav a:hover {
-    color:var(--green);
+    color:var(--semi_dark);
 }
 
 .humburger {
@@ -138,7 +153,7 @@ html {
 
 .arrow-right {
     position: absolute;
-    top: 50%;
+    top: 50%; 
     right: 10px;
     transform: scale(0.8);
     opacity: 0.6;
@@ -162,19 +177,19 @@ html {
     object-position: center;
 }
 
-/* HERO ENDS */
+/* HERO ENDS */ 
 
 
-
+ 
 
 /* FOOTER STARTS*/
 .footer {
     background-color: var(--green);
-    width: 100%;
+    width: 100%; 
     height: 190px;
     color: var(--light);
 
-    display: flex;
+    display: flex; 
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -213,7 +228,7 @@ html {
 
 
 
-@media only screen and (max-width:900px) {
+@media only screen and (max-width:1200px) {
     .nav {
         height: 70px;
         display: block;
@@ -222,7 +237,7 @@ html {
 
     .nav_logo {
         margin: 0px 0px 0px 30px;
-    }
+    } 
 
     .humburger {
         display: block;
@@ -235,7 +250,7 @@ html {
 
         padding: 20px 0px;
         width: 100%;
-        height: calc(100vh - 68px);
+        height: calc(100vh - 60px);
 
         transition: all 0.9s ease;
 
@@ -249,7 +264,7 @@ html {
 
         position: absolute;
         top: 450px;
-        left: -100%;
+        left: -100%; 
         width: 100%;
 
         transition: all 0.9s ease;

@@ -12,11 +12,6 @@
         </div>
 
         <div>
-          <i class="fa-sharp fa-solid fa-address-card"></i>
-          <a href="/admin/editabout">About Page</a>
-        </div>
-
-        <div>
           <i class="fa-sharp fa-solid fa-diagram-project"></i>
           <a href="/admin/editprojects">Project Page</a>
         </div>
@@ -27,13 +22,19 @@
         </div>
 
         <div>
+          <i class="fa-sharp fa-solid fa-address-card"></i>
+          <a href="/admin/editabout">About Page</a>
+        </div>
+
+
+        <div>
           <i class="fa-brands fa-instagram"></i>
           <a href="/admin/editmedia">Media Page</a>
       </div>
 
         <div>
           <i class="fa-sharp fa-solid fa-chart-simple"></i>
-          <a href="/admin/analytics">Analytics</a>
+          <a href="/admin/analytics">Contact/Analytics</a>
       </div>
 
 
@@ -66,14 +67,12 @@
 
       <div class="sehs-1-2-3">
         <ul>
-          <li class="sehs-1-2-3-heading"><p>TITLE</p><p>IMAGES</p><p>CONTENT</p><a></a></li>
+          <li class="sehs-1-2-3-heading"><p>IMAGES</p><p>TITLE</p><p>CONTENT</p><a></a></li>
           <% for (var i=0; i <editservices.length; i++ ) { %>
-            <li>
-              <p>
+            <li class="text-closed"> 
+              <img data-src="/images/<%= editservices[i].services_image %>" alt="<%= editservices[i].services_image %>">
+              <p> 
                 <%=editservices[i].services_title%>
-              </p>
-              <p>
-                <%=editservices[i].services_image%>
               </p>
               <p>
                 <%=editservices[i].services_content%>
@@ -92,6 +91,14 @@
   </section>
 
   <script>
+
+const focustext = document.querySelectorAll('.text-closed');
+    focustext.forEach((e)=>{
+         e.addEventListener('click',()=>{
+           e.classList.toggle('text-active');
+         }); 
+    })
+  
 
     $(document).ready(function () {
        $('.deleteData').click(function(){

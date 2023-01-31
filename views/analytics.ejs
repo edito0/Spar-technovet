@@ -1,4 +1,4 @@
-<%- include("./layouts/header.ejs")%>
+<%- include("./layouts/header2.ejs")%>
 <%var data_commercial=0 %>
 <%var data_residential=0 %>
 <%var data_retail=0 %>
@@ -26,37 +26,37 @@
 <h3>DASHBOARD</h3>
 
 <div class="sehs-1-1-2">
-    <div>       
+    <div>
         <i class="fa-sharp fa-solid fa-house"></i>
         <a href="/admin/edithome">Home Page</a>
-    </div>
+      </div>
 
-    <div>
-        <i class="fa-sharp fa-solid fa-address-card"></i>
-        <a href="/admin/editabout">About Page</a>
-    </div>
-
-    <div>
+      <div>
         <i class="fa-sharp fa-solid fa-diagram-project"></i>
         <a href="/admin/editprojects">Project Page</a>
-    </div>
+      </div>
 
-    <div>
+      <div>
         <i class="fa-sharp fa-solid fa-bell-concierge"></i>
         <a href="/admin/editservices">Services Page</a>
-    </div>
+      </div>
+
+      <div>
+        <i class="fa-sharp fa-solid fa-address-card"></i>
+        <a href="/admin/editabout">About Page</a>
+      </div>
 
 
-    <div>
+      <div>
         <i class="fa-brands fa-instagram"></i>
         <a href="/admin/editmedia">Media Page</a>
     </div>
 
-
-    <div>
+      <div>
         <i class="fa-sharp fa-solid fa-chart-simple"></i>
-        <a href="/admin/analytics">Analytics</a>
+        <a href="/admin/analytics">Contact/Analytics</a>
     </div>
+ 
 
 
 </div>
@@ -67,14 +67,27 @@
 </div>
 
 </div>
-
+ 
 
 
 <div class="sehs-1-2">
 <h3>ANALYTICS</h3>
 
 
-<div class="analytics_counter">
+
+<div class="sehs-1-2-2">
+    <form action="/admin/analytics" method="POST" > 
+      <label for="">Update Company Detail</label>
+      <input type="text" name="address" placeholder="Update Company Address" required> 
+      <input type="text" name="linkedin" placeholder="Update Linkedin Link" required> 
+      <input type="text" name="instagram" placeholder="Update Instagram Link" required> 
+      <input type="text" name="pinterest" placeholder="Update Pinterest Link" required> 
+      <input type="submit" value="submit">    
+    </form> 
+  </div>  
+
+
+<div class="analytics_counter"> 
     <div class="counter">
         <p>No. of times website is visited :</p>
         <p class="count"></p>
@@ -83,19 +96,38 @@
         <p>No. of visitors contacted you :</p>
         <p>
             <%=contactData.length%>
-        </p>
-    </div>
+        </p>  
+    </div> 
 </div>
+
+
+
 
 
 <div class="analytics_chart">
     <canvas id="myChart"></canvas>
+</div>  
+
+
+
+<div class="top_messages">
+    <h3>Top Messages</h3>
+     
+
+    <% for (var i=1; i < 9; i++ ) { %>
+    <div>
+        <div><%=contactData[contactData.length-i].name%></p> <a href="mailto: <%=contactData[contactData.length-i].email%>" aria-label="Mail"><%=contactData[contactData.length-i].email%></a> </div>
+        <p><%=contactData[contactData.length-i].message%></p>
+    </div> 
+
+    <%}%>   
+  
+
 </div>
 
-
-
+ 
 </div>
-
+  
 
 <!-- Data for Chart -->
 <div class="hiddenData">
@@ -121,7 +153,7 @@
 <div class="hiddenData">
 <%=data_ThemedMuseumInteriors %>
 </div>
-<!-- Data for Chart ends -->
+<!-- Data for Chart ends --> 
 
 </section>
 
@@ -165,7 +197,7 @@ options: {
 
 
 const counter = document.querySelector('.count');
-
+ 
 updateVisitCount();
 
 function updateVisitCount() {
@@ -174,11 +206,13 @@ fetch('https://api.countapi.xyz/update/spartechnovetpvtltd2023/spartechnovetpvtl
     .then(res => {
         counter.innerHTML = res.value;
     })
-} 
+}  
 
 </script>
 
 
+
+
 </body>
   
-</html>
+</html> 

@@ -5,8 +5,8 @@
 
         <% for (var i=0; i <projectData.length; i++ ) { %>
             <div class="sps-1-1">
-                <a href="/images/<%=projectData[i]._id%>">
-                    <img data-src="<%=projectData[i].project_image[0]%>" alt="img">
+                <a href="<%=projectData[i]._id%>" aria-label="Go to project detail">
+                    <img data-src="/images/<%=projectData[i].project_image[0]%>" alt="<%=projectData[i].project_image[0]%>">
                     <h1>
                         <%=projectData[i].project_title%>
                     </h1>

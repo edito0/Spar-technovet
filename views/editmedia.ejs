@@ -12,11 +12,6 @@
         </div>
 
         <div>
-          <i class="fa-sharp fa-solid fa-address-card"></i>
-          <a href="/admin/editabout">About Page</a>
-        </div>
-
-        <div>
           <i class="fa-sharp fa-solid fa-diagram-project"></i>
           <a href="/admin/editprojects">Project Page</a>
         </div>
@@ -27,15 +22,20 @@
         </div>
 
         <div>
-          <i class="fa-brands fa-instagram"></i>
-          <a href="/admin/editmedia">Media Page</a>
+          <i class="fa-sharp fa-solid fa-address-card"></i>
+          <a href="/admin/editabout">About Page</a>
         </div>
 
 
         <div>
+          <i class="fa-brands fa-instagram"></i>
+          <a href="/admin/editmedia">Media Page</a>
+      </div>
+
+        <div>
           <i class="fa-sharp fa-solid fa-chart-simple"></i>
-          <a href="/admin/analytics">Analytics</a>
-        </div>
+          <a href="/admin/analytics">Contact/Analytics</a>
+      </div>
 
 
 
@@ -52,7 +52,7 @@
 
     <div class="sehs-1-2">
       <h3>MEDIA PAGE</h3>
-
+  
       <div class="sehs-1-2-2"> 
         <form action="/admin/editmedia" method="POST">
           <label for="">Instagram Link</label>
@@ -68,18 +68,53 @@
           <li class="sehs-1-2-3-heading">
             <p>INSTAGRAM LINK</p><p>PINTREST LINK</p><a></a>
           </li>
-          <% if (editmedia.length>0) { %>
-          <li>
-            <p>
-              <%= editmedia[0].instagram_link%>
+          <% for (var i=0; i <editmedia.length; i++ ) { %>
+          <li class="text-closed">
+            <p>   
+              <%= editmedia[i].instagram_link%>
             </p>
             <p>
-              <%= editmedia[0].pintrest_link %>
-            </p>
-
+              <%= editmedia[i].pintrest_link %>
+            </p> 
             <a href=""><i class="fa-solid fa-trash deleteData" data-id="<%=editmedia[0]._id%>"></i></a>
 
           </li>
+          <% } %>
+
+
+        </ul>
+      </div>
+ 
+
+      <div class="sehs-1-2-2"> 
+        <form action="/admin/editmedia-article" method="POST" enctype="multipart/form-data">
+          <label for="">Featured In</label>
+          <input type="text" name="featuredLink" placeholder="Enter Link of featured article">
+          <input type="text" name="featuredTitle" placeholder="Enter featured article Name">
+          <input type="file" name="image"  >
+          <input type="submit" value="submit">
+        </form>
+      </div>
+     
+      <div class="sehs-1-2-3">
+        <ul>
+          <li class="sehs-1-2-3-heading">
+            <p>IMAGE</p><p>ARTICLE NAME</p><p>ARTICLE LINK</p><a></a>
+          </li>
+          <% for (var i=0; i <editarticle.length; i++ ) { %>
+          <%if(editarticle[i].featured_link != "" ){%>
+          <li class="text-closed">
+            <img data-src="/images/<%= editarticle[i].featured_image %>" alt="<%= editarticle[i].featured_image %>">
+            <p> 
+              <%= editarticle[i].featured_title%> 
+            </p>
+            <p> 
+              <%= editarticle[i].featured_link%>
+            </p>
+            <a href=""><i class="fa-solid fa-trash deleteData-article" data-id="<%=editarticle[0]._id%>"></i></a>
+
+          </li>
+          <%}%>
           <% } %>
 
 
@@ -99,6 +134,19 @@
 
         $.ajax({
           url: "/admin/deletemediadata",
+          type: "POST",
+          data: { id: postId }
+        })
+      })
+    })
+
+    $(document).ready(function () {
+      $('.deleteData-article').click(function () {
+        var postId = $(this).attr('data-id')
+        var obj = $(this);
+
+        $.ajax({
+          url: "/admin/deletemediadata-article",
           type: "POST",
           data: { id: postId }
         })

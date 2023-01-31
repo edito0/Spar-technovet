@@ -118,25 +118,6 @@ body{
 
 
 
-@keyframes jump {
-    0% {
-        top: -30px;
-        transform: scale(0.6) rotate(-30deg);
-    }
-
-    60% {
-        top: -20px;
-        transform: scale(0.6) rotate(-20deg);
-    }
-
-    0% {
-        top: -30px;
-        transform: scale(0.6) rotate(-30deg);
-    }
-
-}
-
-
 
 .sas-1-1-2>h1 {
     margin: 0px 0px 10px 0px;

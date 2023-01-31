@@ -1,8 +1,18 @@
+header{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    background-color: white;
+}
+
 .hiddenData{
     display: none;
 }
+
+
 .sehs-1 {
     display: flex;
+    overflow-x: hidden;
 } 
 
 .sehs-1-1 {
@@ -10,13 +20,17 @@
     min-height: calc(100vh - 73px);
     height: auto;
     background-color: #232323;
-    color: white;
+    color: white; 
 
     display: flex;
     align-items: center;
     flex-direction: column;
 
     padding: 30px;
+
+    position: fixed;
+    left: 0px; 
+    top: 73px;
 }
 
 .sehs-1-2 {
@@ -30,6 +44,8 @@
     flex-direction: column;
 
     padding: 30px  60px;
+
+    margin: 73px 0px 0px 300px;
 }
 
 
@@ -119,8 +135,8 @@
     padding: 10px 20px;
     outline: none;
     color: rgb(91, 91, 91);
-    border: 1px solid  rgb(91, 91, 91);
-    border-radius: 2px;
+    border: 1px solid  rgb(91, 91, 91); 
+    border-radius: 2px; 
 } 
 
 .sehs-1-2-2>form>label{
@@ -136,7 +152,7 @@
     border: 1px solid  rgb(91, 91, 91);
     border-radius: 2px;
 }
-
+ 
 .sehs-1-2-2>form>input[type="submit"]{
     display: block;
     outline: none;
@@ -158,7 +174,7 @@
     border: none;
     margin: 0px 5px 0px 0px;
     padding: 0;
-    text-decoration: underline;
+    text-decoration: underline; 
     color: rgb(91, 91, 91);
     display: none;
 }
@@ -167,43 +183,74 @@
 .sehs-1-2-3 {
     width: 100%;
     color: #232323;
-}
+} 
 
-.sehs-1-2-3-heading{
+.sehs-1-2-3-heading{ 
     color: rgb(91, 91, 91); 
     font-size: 12px;
     font-weight: bold;
 }
 
-.sehs-1-2-3>ul>li {
-    width: 60%;
+.sehs-1-2-3-heading>p:nth-child(3){ 
+    width: 40%;
+} 
+
+.sehs-1-2-3-heading>p:nth-child(4){ 
+    width: 40%;
+} 
+
+.sehs-1-2-3>ul>li{
+    width: 80%;
     display: flex;
     justify-content: space-between;
     padding: 20px 0px;
-    border-bottom: 1px solid rgb(91, 91, 91); 
+    border-bottom: 1px solid rgb(91, 91, 91);
 }
 
-.sehs-1-2-3>ul>li:last-child {
-
+.sehs-1-2-3>ul>li>img {
+    width: 20%;
+    height: 80px;
+    margin: 0px 20px 0px 0px;
+    object-fit: cover;   
+}
+ 
+.sehs-1-2-3>ul>li:last-child {  
+    
     border-bottom: none; 
 }
 
-.sehs-1-2-3>ul>li>a { 
-    color: #232323;
+.sehs-1-2-3>ul>li>a {  
+    color: #232323; 
+}  
+
+.sehs-1-2-3>ul>li>p{ 
+    width: 20%;
+    max-height: 200px;           
+    overflow: hidden;
+    margin: 0px 20px 0px 0px;
+    line-height: 20px;
 }
 
-.sehs-1-2-3>ul>li>p{
-    width: 20%;
-    max-height: 200px;
-    overflow: hidden;
+.text-closed>p:nth-child(3){ 
+    width: 40%;
+}
+ 
+.text-closed>p{
     overflow-wrap: break-word;
     text-overflow: ellipsis;
     white-space:nowrap; 
+    transition: all 0.3s ease-in-out;
+    
 }
 
+.text-active>p{ 
+    text-overflow: initial; 
+    white-space:normal; 
+}
+ 
 .analytics_chart{
     width: 100%;
-    height: 60%;
+    height: 400px;
     margin: 30px 0px;
 }
 
@@ -222,7 +269,7 @@
     height: auto;
     padding: 20px 30px;
     border-radius: 15px;
-    background-color: var(--green);
+    background-color: var(--green);  
     color: var(--light);
 
     margin: 0px 20px 20px 0px;
@@ -234,15 +281,57 @@
 }
 
 
+.top_messages{
+    color: var(--dark);
+    width: 100%;
+}
+
+.top_messages>h3{
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0px 0px 30px 0px;
+}
+
+.top_messages>div{
+    display: flex;
+    margin: 30px 0px;
+    padding: 10px 0px;
+    width: auto;
+    max-width: 500px;
+    border-bottom: 1px solid rgb(91, 91, 91);
+}
+ 
+.top_messages>div>div{
+    margin: 0px 20px 0px 0px;
+    font-weight: bold;
+}
+
+.top_messages>div>div>a{
+    font-size: 10px ;
+    font-weight:normal;   
+    display: block;
+    width: 100px;
+    overflow-wrap: break-word;
+}
+ 
+
 @media only screen and (max-width:1000px) {
+
+    header{
+        position: initial;
+    }
+
+     
     .sehs-1 {
         flex-direction: column;
-    }
+    } 
 
     .sehs-1-1 {
         width: 100%;
         min-height: 100%;
-        height: auto;
+        height: auto;                                     
+        position: initial;
+    
     }
 
     .sehs-1-2 { 
@@ -250,6 +339,7 @@
         min-height: 100%;
         height: auto;
         padding: 30px;
+        margin: 0px;
     }
 
 

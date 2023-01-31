@@ -5,9 +5,11 @@ const Project = require('../models/projectdataSettingModel');
 const Home = require('../models/homedataSettingModel');
 const Contact = require('../models/contactdataSettingModel');
 const Media = require('../models/mediadataSettingModel');
+const Article = require('../models/mediadataarticleSettingModel');
+const Analytics = require('../models/anylaticsdataSettingModel');
 const bcrypt = require('bcrypt');
 const path = require('path');
-const multer = require('multer');
+const multer = require('multer'); 
 const sharp = require('sharp');
 const fs = require('fs');
 
@@ -37,19 +39,19 @@ const sendResetPasswordMail = async (email, token) => {
         const trasnport = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 465,
-            secure: true,
+            secure: true, 
             requireTLS: true,
-            auth: {
+            auth: { 
                 user: process.env.clientEmail,
                 pass: process.env.clientPassword
-            }
+            } 
         });
 
         const mailOptions = {
             from: process.env.clientEmail,
             to: email,
             subject: "Reset Password",
-            html: `<p> Hi Admin, Please click here to Reset your Password <a href="http://localhost:3000/admin/reset-password?token=${token}">Reset</a> </p>`
+            html: `<p> Hi Admin, Please click here to Reset your Password <a href="https://spartechnovet.com/admin/reset-password?token=${token}">Reset</a> </p>`
         }
 
         trasnport.sendMail(mailOptions, function (error, info) {
@@ -70,7 +72,10 @@ const sendResetPasswordMail = async (email, token) => {
 //FORGOT PASSWORD
 const forgetPassword = async (req, res) => {
     try {
-        res.render('forgetpassword')
+        const analytics = await Analytics.findOne({});
+        res.render('forgetpassword', {
+            analytics
+        })
 
     } catch (error) {
         console.log(error.message);
@@ -86,11 +91,11 @@ const forgetPasswordVerify = async (req, res) => {
         if (clinetData) {
             const randomstring = Randomstring.generate();
 
-            await Client.updateOne({ client_email: email },
+            await Client.updateOne({ client_email: email }, 
                 { $set: { token: randomstring } })
 
             sendResetPasswordMail(clinetData.client_email, randomstring)
-            res.render('forgetpassword')
+            res.redirect('/admin');
         }
         else {
             res.render('forgetpassword')
@@ -105,9 +110,11 @@ const resetPassword = async (req, res) => {
     try {
         const token = req.query.token;
         const tokenData = await Client.findOne({ token: token });
+        const analytics = await Analytics.findOne({});
         if (tokenData) {
             res.render('resetpassword', {
-                client_id: tokenData._id
+                client_id: tokenData._id,
+                analytics
             })
         }
         else {
@@ -136,9 +143,18 @@ const PostResetPassword = async (req, res) => {
 
 //FORGOT PASSWORD ENDS
 
-// LOGIN PAGE
+// LOGIN PAGEadd
 const login = async (req, res) => {
-    res.render('login');
+    try {
+        const analytics = await Analytics.findOne({});
+        res.render('login', {
+            analytics
+        });
+
+    } catch (error) {
+        console.log(error.message);
+    }
+
 }
 
 const loginSave = async (req, res) => {
@@ -165,7 +181,7 @@ const loginSave = async (req, res) => {
         }
         else {
             res.render('login', {
-                alert: "Entered Password is Wrong"
+                alert: "Entered Password is Wrong "
             })
         }
 
@@ -181,7 +197,7 @@ const loginSave = async (req, res) => {
 
 
 
-// LOGOUT PAGE
+// LOGOUT  
 const logout = async (req, res) => {
     try {
         req.session.destroy();
@@ -200,13 +216,13 @@ const logout = async (req, res) => {
 // HOME PAGE
 const editHome = async (req, res) => {
     try {
-        const edithomes = await Home.find({}); 
+        const edithomes = await Home.find({});
         res.render('edithome', {
             edithomes
         });
- 
+
     }
-    catch (error) { 
+    catch (error) {
         console.log(error.message);
     }
 }
@@ -214,7 +230,7 @@ const editHome = async (req, res) => {
 const postEditHome = async (req, res) => {
     try {
         let compressImgPath = path.join(__dirname, "../public/images", req.file.filename);
-        sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
+        sharp(req.file.path).resize(1000).webp({ quality: 100 }).toFile(compressImgPath)
 
         var image = '';
         if (req.file.filename !== undefined) {
@@ -224,7 +240,7 @@ const postEditHome = async (req, res) => {
         const home = new Home(
             {
                 home_image: image
-            } 
+            }
         );
 
         const homeData = await home.save();
@@ -235,7 +251,7 @@ const postEditHome = async (req, res) => {
     }
 
     res.redirect('/admin/edithome');
-} 
+}
 
 const deleteHomeData = async (req, res) => {
     try {
@@ -254,7 +270,7 @@ const deleteHomeData = async (req, res) => {
 }
 // HOME PAGE ENDS 
 
- 
+
 
 
 
@@ -278,7 +294,7 @@ const postEditAbout = async (req, res) => {
     try {
         let compressImgPath = path.join(__dirname, "../public/images", req.file.filename);
 
-        sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
+        sharp(req.file.path).resize(600).webp({ quality: 100 }).toFile(compressImgPath)
 
         var image = '';
         if (req.file.filename !== undefined) {
@@ -325,13 +341,13 @@ const deleteAboutData = async (req, res) => {
 
 
 
-// SERVICES PAGE
+// SERVICES PAGE 
 const postEditServices = async (req, res) => {
 
     try {
         let compressImgPath = path.join(__dirname, "../public/images", req.file.filename);
 
-        sharp(req.file.path).webp({ quality: 3 }).toFile(compressImgPath)
+        sharp(req.file.path).resize(600).webp({ quality: 100 }).toFile(compressImgPath)
 
         var image = '';
         if (req.file.filename !== undefined) {
@@ -413,7 +429,7 @@ const postEditProject = async (req, res) => {
 
                 let compressImgPath = path.join(__dirname, "../public/images", files.filename);
 
-                sharp(files.path).webp({ quality: 3 }).toFile(compressImgPath)
+                sharp(files.path).resize(600).webp({ quality: 100 }).toFile(compressImgPath)
 
                 return (files.filename)
             });
@@ -425,7 +441,10 @@ const postEditProject = async (req, res) => {
                 project_image: image,
                 project_title: req.body.title,
                 project_content: req.body.content,
-                project_detail: req.body.detail
+                scope: req.body.scope,
+                location: req.body.location,
+                photographer: req.body.photographer,
+                featuredin: req.body.featuredin
             }
         );
 
@@ -452,7 +471,6 @@ const deletePorjectData = async (req, res) => {
     } catch (error) {
         console.log(error.message);
     }
- 
 }
 //PROJECT PAGE ENDS
 
@@ -461,8 +479,10 @@ const deletePorjectData = async (req, res) => {
 const editmedia = async (req, res) => {
     try {
         const editmedia = await Media.find({});
+        const editarticle = await Article.find({});
         res.render('editmedia', {
-            editmedia
+            editmedia,
+            editarticle
         });
 
     }
@@ -474,7 +494,6 @@ const editmedia = async (req, res) => {
 const postEditMedia = async (req, res) => {
 
     try {
-
         const media = new Media(
             {
                 instagram_link: req.body.instagramLink,
@@ -492,6 +511,40 @@ const postEditMedia = async (req, res) => {
     res.redirect('/admin/editmedia');
 }
 
+const postEditMediaArticle = async (req, res) => {
+
+    try {
+        let compressImgPath = path.join(__dirname, "../public/images", req.file.filename);
+
+        sharp(req.file.path).resize(500).webp({ quality: 100 }).toFile(compressImgPath)
+
+        var image = '';
+        if (req.file.filename !== undefined) {
+            image = req.file.filename;
+        }
+
+
+
+        const article = new Article(
+            {
+                featured_link: req.body.featuredLink,
+                featured_title: req.body.featuredTitle,
+                featured_image: image
+            }
+        );
+
+        await article.save();
+
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+
+    res.redirect('/admin/editmedia');
+}
+
+
+
 const deleteMediaData = async (req, res) => {
     try {
         await Media.deleteOne({ _id: req.body.id })
@@ -502,6 +555,19 @@ const deleteMediaData = async (req, res) => {
 
 }
 
+const deleteMediaDataArticle = async (req, res) => {
+    try {
+        const mediaData = await Article.findOne({ _id: req.body.id });
+        fs.unlink(path.join(__dirname, "../public/images", mediaData.featured_image), () => { });
+        fs.unlink(path.join(__dirname, "../public/images/original-img", mediaData.featured_image), () => { });
+        await Article.deleteOne({ _id: req.body.id })
+
+        res.redirect('/admin/editMedia');
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 
 //MEDIA PAGE ENDS
 
@@ -509,12 +575,33 @@ const deleteMediaData = async (req, res) => {
 // ANALYTICS 
 const analytics = async (req, res) => {
 
-    try {
+    try { 
         const contactData = await Contact.find({});
         res.render('analytics', { contactData }
         );
     }
     catch (error) {
+        console.log(error.message);
+    }
+}
+
+const postAnalytics = async (req, res) => {
+    try {
+
+        const data = await Analytics.findOne({});
+        const address = req.body.address;
+        const linkedin = req.body.linkedin;
+        const instagram = req.body.instagram;
+        const pinterest = req.body.pinterest; 
+
+        console.log(data);
+        await Analytics.updateOne({ _id: data._id }, { $set: { address: address, linkedin: linkedin, instagram: instagram, pinterest: pinterest } })
+
+        const data1 = await Analytics.findOne({});
+        console.log(data1);
+        res.redirect('/admin/analytics');
+
+    } catch (error) {
         console.log(error.message);
     }
 }
@@ -546,7 +633,10 @@ module.exports = {
     deleteMediaData,
     forgetPasswordVerify,
     resetPassword,
-    PostResetPassword
+    PostResetPassword,
+    postAnalytics,
+    postEditMediaArticle,
+    deleteMediaDataArticle
 }
 
 

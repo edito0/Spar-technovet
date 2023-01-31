@@ -43,7 +43,7 @@ const storage = multer.diskStorage({
         cb(null,path.join(__dirname,"../public/images/original-img"))
     },
     filename:function (req,file,cb) { 
-        const name = Date.now()+'-'+file.originalname;
+        const name = Date.now()+'-'+file.originalname; 
         cb(null,name);
     }
 });
@@ -95,16 +95,19 @@ admin_route.post('/deleteprojectsdata',adminLogAuth.isLogin,adminController.dele
 
 // ANALYTICS
 admin_route.get('/analytics',adminLogAuth.isLogin,adminController.analytics);
+admin_route.post('/analytics',adminLogAuth.isLogin,adminController.postAnalytics);
 // ANALYTICS ENDS 
 
 
 //MEDIA PAGE
 admin_route.get('/editmedia',adminLogAuth.isLogin,adminController.editmedia);
 admin_route.post('/editmedia',adminLogAuth.isLogin,adminController.postEditMedia); 
+admin_route.post('/editmedia-article',upload.single('image'),adminLogAuth.isLogin,adminController.postEditMediaArticle);  
 admin_route.post('/deletemediadata',adminLogAuth.isLogin,adminController.deleteMediaData);
-// MEDIA PAGES ENDS
-
-
+admin_route.post('/deletemediadata-article',adminLogAuth.isLogin,adminController.deleteMediaDataArticle);
+// MEDIA PAGES ENDS     
+ 
+   
 
 
 //FORGET PASSWORD PAGE

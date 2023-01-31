@@ -5,17 +5,12 @@
     <div class="sehs-1-1">
       <h3>DASHBOARD</h3>
 
-      <div class="sehs-1-1-2">
+      <div class="sehs-1-1-2"> 
         <div>
           <i class="fa-sharp fa-solid fa-house"></i>
           <a href="/admin/edithome">Home Page</a>
         </div>
-
-        <div>
-          <i class="fa-sharp fa-solid fa-address-card"></i>
-          <a href="/admin/editabout">About Page</a>
-        </div>
-
+ 
         <div>
           <i class="fa-sharp fa-solid fa-diagram-project"></i>
           <a href="/admin/editprojects">Project Page</a>
@@ -27,13 +22,19 @@
         </div>
 
         <div>
+          <i class="fa-sharp fa-solid fa-address-card"></i>
+          <a href="/admin/editabout">About Page</a>
+        </div>
+
+
+        <div>
           <i class="fa-brands fa-instagram"></i>
           <a href="/admin/editmedia">Media Page</a>
       </div>
 
         <div>
           <i class="fa-sharp fa-solid fa-chart-simple"></i>
-          <a href="/admin/analytics">Analytics</a>
+          <a href="/admin/analytics">Contact/Analytics</a>
       </div>
 
 
@@ -45,7 +46,7 @@
         <a href="/admin/logout">Log Out</a>
       </div>
 
-    </div>
+    </div> 
 
 
 
@@ -55,7 +56,7 @@
       <div class="sehs-1-2-2">
         <form action="/admin/edithome" method="POST" enctype="multipart/form-data">
           <label for="">Image</label>
-          <input type="file" name="image">
+          <input type="file" name="image"> 
           <input type="submit" value="submit">
         </form>
       </div>       
@@ -64,23 +65,23 @@
         <ul>
           <li class="sehs-1-2-3-heading"><p>IMAGES</p><a></a></li>
           <% for (var i=0; i <edithomes.length; i++ ) { %>
-            <li>
-              <p>
-                <%= edithomes[i].home_image %>
-              </p>
+            <li class="text-closed">
+               <img data-src="/images/<%= edithomes[i].home_image %>" alt="<%= edithomes[i].home_image %>">
               <a href=""><i class="fa-solid fa-trash deleteData" data-id="<%=edithomes[i]._id%>"></i></a>
               
             </li>
             <% } %>
-
+    
         </ul>
       </div>
- 
+  
     </div>
 
   </section> 
 
   <script>
+
+    
 
     $(document).ready(function () {
        $('.deleteData').click(function(){

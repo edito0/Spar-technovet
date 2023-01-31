@@ -5,7 +5,8 @@
         <div class="shs-1-1">
 
             <% for (var i=0; i <homeData.length; i++ ) { %>
-                <img data-src="/images/<%= homeData[i].home_image %>" class="shs-1-1-img">
+                <img data-src="/images/<%= homeData[i].home_image %>" class="shs-1-1-img"
+                    alt="<%= homeData[i].home_image %>">
                 <% } %>
 
         </div>
@@ -31,7 +32,7 @@
                 fill="black" />
         </g>
     </svg>
-
+ 
 
     <script>
         //FOR THE HOME PAGE SLIDER
@@ -51,7 +52,7 @@
         }
 
 
-
+ 
         var x = 0;
         var len = image_container_images.length;
 
@@ -63,21 +64,8 @@
                 x = 100;
             }
 
-            image_super_container.style.transform = 'scale(0.7)';
-            image_super_container.style.opacity = '0.3';
-
-
-
-            setTimeout(() => {
-                image_container.style.transform = `translateX(${x - 100}%)`;
-                image_super_container.style.transform = 'scale(0.7)';
-                x = x - 100;
-            }, 300)
-
-            setTimeout(() => {
-                image_super_container.style.transform = 'scale(1)';
-                image_super_container.style.opacity = '1';
-            }, 600)
+            image_container.style.transform = `translateX(${x - 100}%)`;
+            x = x - 100;
 
         }
 
@@ -86,37 +74,26 @@
         const slideRight = () => {
 
             if (x < 0) {
-                image_super_container.style.transform = 'scale(0.7)';
-                image_super_container.style.opacity = '0.3';
 
+                image_container.style.transform = `translateX(${x + 100}%)`;
+                x = x + 100;
 
-
-                setTimeout(() => {
-                    image_container.style.transform = `translateX(${x + 100}%)`;
-                    image_super_container.style.transform = 'scale(0.7)';
-                    x = x + 100;
-                }, 300)
-
-                setTimeout(() => {
-                    image_super_container.style.transform = 'scale(1)';
-                    image_super_container.style.opacity = '1';
-                }, 600)
             }
-
+ 
         }
 
         arrowLeft.addEventListener('click', slideRight);
 
-
-
-        setInterval(slideLeft,10000)
-
-
-        window.addEventListener('load',slideLeft)
-
-
-    </script>
+        setInterval(slideLeft, 9000)  
 
 
 
-<%- include("./layouts/footer.ejs")%>
+        const imgLink = image_container_images[0].getAttribute('data-src')
+        image_container_images[0].setAttribute('src',imgLink);
+
+
+    </script> 
+
+
+
+    <%- include("./layouts/footer.ejs")%>
