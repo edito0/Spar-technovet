@@ -68,7 +68,6 @@ html {
    height: 63px;
 
    display: flex;
-   justify-content: center;
    align-items: center;
 }
 
@@ -95,11 +94,10 @@ html {
 }
 
 .nav_email{
-    width: 200px;
+    width: 230px;
 }
 
 .nav_email>a {
-    text-align: center;
     text-decoration: none;
     display: block;
     color:var(--dark);
@@ -263,7 +261,7 @@ html {
         align-items: center;
 
         position: absolute;
-        top: 450px;
+        top: 500px;
         left: -100%; 
         width: 100%;
 

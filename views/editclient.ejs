@@ -1,0 +1,158 @@
+<%- include("./layouts/header2.ejs")%>
+
+  <section class="sehs-1">
+
+    <div class="sehs-1-1">
+      <h3>DASHBOARD</h3>
+
+      <div class="sehs-1-1-2"> 
+        <div>
+          <i class="fa-sharp fa-solid fa-house"></i>
+          <a href="/admin/edithome">Home Page</a>
+        </div>
+ 
+        <div>
+          <i class="fa-sharp fa-solid fa-diagram-project"></i>
+          <a href="/admin/editprojects">Project Page</a>
+        </div>
+
+        <div>
+          <i class="fa-sharp fa-solid fa-bell-concierge"></i>
+          <a href="/admin/editservices">Services Page</a>
+        </div>
+
+        <div>
+          <i class="fa-sharp fa-solid fa-address-card"></i>
+          <a href="/admin/editabout">About Page</a>
+        </div>
+
+
+        <div>
+          <i class="fa-brands fa-instagram"></i>
+          <a href="/admin/editmedia">Media Page</a>
+      </div>
+
+      <div>
+        <i class="fa-solid fa-user"></i>
+        <a href="/admin/editclient">Client Page</a>
+    </div>
+
+        <div>
+          <i class="fa-sharp fa-solid fa-chart-simple"></i>
+          <a href="/admin/analytics">Contact/Analytics</a>
+      </div>
+
+
+
+      </div>
+
+
+      <div class="sehs-1-1-3">
+        <a href="/admin/logout">Log Out</a>
+      </div>
+
+
+      
+
+    </div> 
+
+ 
+    <div class="sehs-1-2">
+      <h3>CLIENT PAGE</h3>
+
+      <div class="sehs-1-2-2">
+        <form action="/admin/edittestimonial" method="POST" enctype="multipart/form-data">
+          <label for="">Testimonial Image</label>
+          <input type="file" name="image"> 
+          <label for="">Testimonial Name</label>
+          <input type="text" name="name"> 
+          <label for="">Testimonial Position</label>
+          <input type="text" name="position"> 
+          <label for="">Testimonial Message</label>
+          <textarea name="message" id="" cols="30" rows="10"></textarea>
+          <input type="submit" value="submit">
+        </form>
+      </div>       
+ 
+      <div class="sehs-1-2-3"> 
+        <ul> 
+          <li class="sehs-1-2-3-heading"><p>IMAGES</p><p>NAME</p><p>MESSAGE</p><a></a></li>
+          <% for (var i=0; i <  edittestimonial.length; i++ ) { %>
+            <li class="text-closed">
+               <img data-src="/images/<%=edittestimonial[i].testimonial_image %>" alt="<%=edittestimonial[i].testimonial_image %>">
+               <p>
+                <%=edittestimonial[i].testimonial_name %>
+               </p>
+               <p>
+                <%=edittestimonial[i].testimonial_message%>
+               </p>
+              <a href=""><i class="fa-solid fa-trash deleteData-testimonial" data-id="<%=edittestimonial[i]._id%>"></i></a>
+              
+            </li>
+            <% } %>
+    
+        </ul>
+      </div>
+
+      <div class="sehs-1-2-2">
+        <form action="/admin/editclient" method="POST" enctype="multipart/form-data">
+          <label for="">Client Logo</label>
+          <input type="file" name="image"> 
+          <input type="submit" value="submit">
+        </form>
+      </div>       
+ 
+      <div class="sehs-1-2-3">
+        <ul>
+          <li class="sehs-1-2-3-heading"><p>IMAGES</p><a></a></li>
+          <% for (var i=0; i < editclient.length; i++ ) { %>
+            <li class="text-closed">
+               <img data-src="/images/<%=  editclient[i].client_logo %>" alt="<%= editclient[i].client_logo  %>">
+              <a href=""><i class="fa-solid fa-trash deleteData" data-id="<%=editclient[i]._id%>"></i></a>
+              
+            </li>
+            <% } %>
+    
+        </ul>
+      </div>
+
+  
+    </div>
+
+  </section> 
+
+  <script>
+
+
+
+$(document).ready(function () {
+       $('.deleteData-testimonial').click(function(){
+        var postId = $(this).attr('data-id')
+        var obj = $(this);
+
+        $.ajax({
+          url:"/admin/deletetestimonialdata",
+          type: "POST",
+          data: {id:postId}
+        }) 
+       })
+    })
+    
+
+    $(document).ready(function () {
+       $('.deleteData').click(function(){
+        var postId = $(this).attr('data-id')
+        var obj = $(this);
+
+        $.ajax({
+          url:"/admin/deleteclientdata",
+          type: "POST",
+          data: {id:postId}
+        })
+       })
+    })
+  </script>
+
+  </body>
+
+  </html> 

@@ -118,6 +118,32 @@ app.use('/projects', projectRoute);
 
 
 
+//SERVICES PAGE:- 
+const testimonialsettings = require('./models/testimonialdataSettingModel');
+const clientsettings = require('./models/clientsdataSettingModel');
+
+app.use('/client',cache("9 minutes"), async (req, res) => {
+
+    try {
+        const testimonialData = await testimonialsettings.find({});
+        const clientData = await clientsettings.find({});
+        const analytics = await Analytics.findOne({});
+        res.render('testimonial', {
+            analytics,
+            testimonialData,
+            clientData 
+        });
+
+    }
+    catch (error) { 
+        console.log(error.message);
+    }
+})
+//SERVICES PAGE ENDS 
+
+
+ 
+
 
 //SERVICES PAGE:- 
 const servicessettings = require('./models/servicesdataSettingModel');
@@ -139,7 +165,7 @@ app.use('/services',cache("9 minutes"), async (req, res) => {
 })
 //SERVICES PAGE ENDS
 
-
+ 
 
 
 
@@ -193,8 +219,9 @@ app.use('/media',cache("9 minutes"), async (req, res) => {
 
 // HOME PAGE:-
 const homesettings = require('./models/homedataSettingModel');
+const { log } = require('console');
 
-app.use('/', async (req, res) => {
+app.use('/',cache("9 minutes"), async (req, res) => {
     try {
         const analytics = await Analytics.findOne({});
         const homeData = await homesettings.find({})

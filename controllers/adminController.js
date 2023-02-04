@@ -7,6 +7,8 @@ const Contact = require('../models/contactdataSettingModel');
 const Media = require('../models/mediadataSettingModel');
 const Article = require('../models/mediadataarticleSettingModel');
 const Analytics = require('../models/anylaticsdataSettingModel');
+const Testimonial = require('../models/testimonialdataSettingModel');
+const Coustomer = require('../models/clientsdataSettingModel');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const multer = require('multer'); 
@@ -593,9 +595,10 @@ const postAnalytics = async (req, res) => {
         const linkedin = req.body.linkedin;
         const instagram = req.body.instagram;
         const pinterest = req.body.pinterest; 
+        const houzz = req.body.houzz; 
 
-        console.log(data);
-        await Analytics.updateOne({ _id: data._id }, { $set: { address: address, linkedin: linkedin, instagram: instagram, pinterest: pinterest } })
+
+        await Analytics.updateOne({ _id: data._id }, { $set: { address: address, linkedin: linkedin, instagram: instagram, pinterest: pinterest,houzz:houzz } })
 
         const data1 = await Analytics.findOne({});
         console.log(data1);
@@ -607,6 +610,119 @@ const postAnalytics = async (req, res) => {
 }
 // ANALYTICS ENDS 
 
+
+//CLIENTS
+
+const editclient = async (req, res) => {
+    try {
+        const editclient = await Coustomer.find({});
+        const edittestimonial = await Testimonial.find({});
+        res.render('editclient', {
+            editclient,
+            edittestimonial
+        });
+
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+const postEditClient = async (req, res) => {
+
+    try {
+        let compressImgPath = path.join(__dirname, "../public/images", req.file.filename);
+
+        sharp(req.file.path).resize(600).webp({ quality: 100 }).toFile(compressImgPath)
+
+        var image = '';
+        if (req.file.filename !== undefined) {
+            image = req.file.filename;
+        }
+
+        const coustomer = new Coustomer(
+            {
+                client_logo: image
+            } 
+        );
+
+        await coustomer.save();
+
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+
+    res.redirect('/admin/editclient');
+}
+
+const postEditTestimonial = async (req, res) => {
+
+    try {
+        let compressImgPath = path.join(__dirname, "../public/images", req.file.filename);
+
+        sharp(req.file.path).resize(600).webp({ quality: 100 }).toFile(compressImgPath)
+
+        var image = '';
+        if (req.file.filename !== undefined) {
+            image = req.file.filename;
+        }
+
+        const testimonial = new Testimonial(
+            {
+                testimonial_name:req.body.name,
+                testimonial_image: image,
+                testimonial_position:req.body.position,
+                testimonial_message:req.body.message
+            } 
+        );
+
+        await testimonial.save();
+ 
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+
+    res.redirect('/admin/editclient');
+}
+
+
+
+const deleteclientData = async (req, res) => {
+    try {
+
+        const clientData = await Coustomer.findOne({ _id: req.body.id });
+        fs.unlink(path.join(__dirname, "../public/images", clientData.client_logo), () => { });
+        fs.unlink(path.join(__dirname, "../public/images/original-img",  clientData.client_logo), () => { });
+        await clientData.deleteOne({ _id: req.body.id })
+        res.redirect('/admin/editclient');
+    } catch (error) {
+        console.log(error.message);
+    }
+
+}
+
+const deleteTestimonialData = async (req, res) => {
+    try {
+
+        const testimonialData = await Testimonial.findOne({ _id: req.body.id });
+        fs.unlink(path.join(__dirname, "../public/images", testimonialData.testimonial_image), () => { });
+        fs.unlink(path.join(__dirname, "../public/images/original-img", testimonialData.testimonial_image), () => { });
+        await testimonialData.deleteOne({ _id: req.body.id })
+        res.redirect('/admin/editclient');
+    } catch (error) {
+        console.log(error.message);
+    }
+ 
+}
+
+// ABOUT PAGE ENDS
+
+
+
+
+//ENDS CLIENTS
 
 
 
@@ -636,7 +752,12 @@ module.exports = {
     PostResetPassword,
     postAnalytics,
     postEditMediaArticle,
-    deleteMediaDataArticle
+    deleteMediaDataArticle,
+    editclient,
+    deleteclientData,
+    postEditClient,
+    postEditTestimonial,
+    deleteTestimonialData
 }
 
 

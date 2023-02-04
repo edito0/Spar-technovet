@@ -17,6 +17,10 @@ const analayticsSettingSchema = mongoose.Schema({
         type:String,
         require:true
     },
+    houzz:{
+        type:String,
+        require:true
+    }
 }) 
 
 module.exports = mongoose.model('analyticsSetting',analayticsSettingSchema);

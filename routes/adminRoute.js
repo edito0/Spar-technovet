@@ -105,7 +105,17 @@ admin_route.post('/editmedia',adminLogAuth.isLogin,adminController.postEditMedia
 admin_route.post('/editmedia-article',upload.single('image'),adminLogAuth.isLogin,adminController.postEditMediaArticle);  
 admin_route.post('/deletemediadata',adminLogAuth.isLogin,adminController.deleteMediaData);
 admin_route.post('/deletemediadata-article',adminLogAuth.isLogin,adminController.deleteMediaDataArticle);
-// MEDIA PAGES ENDS     
+// MEDIA PAGES ENDS    
+ 
+
+
+// PROJECT PAGE
+admin_route.get('/editclient',adminLogAuth.isLogin,adminController.editclient);
+admin_route.post('/editclient',upload.single('image'),adminLogAuth.isLogin,adminController.postEditClient); 
+admin_route.post('/deleteclientdata',adminLogAuth.isLogin,adminController.deleteclientData); 
+admin_route.post('/edittestimonial',upload.single('image'),adminLogAuth.isLogin,adminController.postEditTestimonial); 
+admin_route.post('/deletetestimonialdata',adminLogAuth.isLogin,adminController.deleteTestimonialData);
+// PROJECT PAGE ENDS 
  
    
 

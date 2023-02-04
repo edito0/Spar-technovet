@@ -1,0 +1,131 @@
+<%- include("./layouts/header.ejs")%>
+<section class="sts-1">
+    <h1>TESTIMONIALS</h1>
+
+<div class="container">
+    <div class="sts-1-1">
+        <% for (var i=0; i <testimonialData.length; i++ ) { %>
+        <div class="cover">
+        <div class="sts-1-1-1">
+            <div>
+                <img src="/images/<%=testimonialData[i].testimonial_image%>" alt="<%=testimonialData[i].testimonial_image%>">
+                <div>
+                    <p><%=testimonialData[i].testimonial_name%></p> <p><%=testimonialData[i].testimonial_position%></p>
+                </div>
+            </div>
+            
+            
+            <div> 
+                <p>
+                    <span>“</span>
+                    <%=testimonialData[i].testimonial_message%>
+                    <span>”</span>
+                </p>   
+            </div>
+            
+        </div>
+        </div>
+        <%}%>
+    </div>
+
+    <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg" class="c-left">
+        <g opacity="0.9">
+           <circle cx="27.5" cy="27.5" r="27.5" transform="rotate(-180 27.5 27.5)" fill="#D9D9D9" />
+           <path
+              d="M9.93934 26.9393C9.35355 27.5251 9.35355 28.4749 9.93934 29.0607L19.4853 38.6066C20.0711 39.1924 21.0208 39.1924 21.6066 38.6066C22.1924 38.0208 22.1924 37.0711 21.6066 36.4853L13.1213 28L21.6066 19.5147C22.1924 18.9289 22.1924 17.9792 21.6066 17.3934C21.0208 16.8076 20.0711 16.8076 19.4853 17.3934L9.93934 26.9393ZM45 26.5L11 26.5L11 29.5L45 29.5L45 26.5Z"
+              fill="black" />
+        </g>  
+     </svg>
+
+     <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg" class="c-right">
+        <g opacity="0.9">
+           <circle cx="27.5" cy="27.5" r="27.5" fill="#D9D9D9" />
+           <path
+              d="M45.0607 28.0607C45.6464 27.4749 45.6464 26.5251 45.0607 25.9393L35.5147 16.3934C34.9289 15.8076 33.9792 15.8076 33.3934 16.3934C32.8076 16.9792 32.8076 17.9289 33.3934 18.5147L41.8787 27L33.3934 35.4853C32.8076 36.0711 32.8076 37.0208 33.3934 37.6066C33.9792 38.1924 34.9289 38.1924 35.5147 37.6066L45.0607 28.0607ZM10 28.5L44 28.5L44 25.5L10 25.5L10 28.5Z"
+              fill="black" />
+        </g>
+     </svg>
+
+</div>
+
+
+<h1>OUR CLIENTS</h1>
+
+<div class="sts-1-2">
+
+<% for (var i=0; i <clientData.length; i++ ) { %>
+    <div class="sts-1-2-1">
+        <img src="/images/<%=clientData[i].client_logo%>" alt="<%=clientData[i].client_logo%>">
+    </div>
+<%}%> 
+</div>
+     
+
+
+</section>
+
+
+<script>
+        const container = document.querySelector('.sts-1-1');
+        const cards_container = document.querySelectorAll('.cover');
+        const arrowLeft = document.querySelector('.c-left');
+        const arrowRight = document.querySelector('.c-right');
+
+
+        var maxHeight = cards_container[0].clientHeight;
+        cards_container.forEach(element => {
+            if(maxHeight < element.clientHeight)
+            {
+                maxHeight = element.clientHeight;
+            }
+            
+        });
+
+        container.style.height = `${maxHeight}px`;
+
+        var pos = -100;
+
+        for (let index = 0; index < cards_container.length; index++) {
+            cards_container[index].style.left = `${pos + 100}%`;
+            pos = pos + 100;
+        }
+
+
+ 
+        var x = 0;
+        var len = cards_container.length;
+
+
+
+        const slideLeft = () => {
+
+            if (len * 100 == -(x - 100)) {
+                x = 100;
+            }
+
+            container.style.transform = `translateX(${x - 100}%)`;
+            x = x - 100;
+
+        }
+
+        arrowRight.addEventListener('click', slideLeft);
+
+        const slideRight = () => {
+
+            if (x < 0) {
+
+                cards_container.style.transform = `translateX(${x + 100}%)`;
+                x = x + 100;
+
+            }
+ 
+        }
+
+        arrowLeft.addEventListener('click', slideRight);
+
+        setInterval(slideLeft, 9000)  
+
+
+</script>
+
+<%- include("./layouts/footer.ejs")%>

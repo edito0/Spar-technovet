@@ -1,0 +1,178 @@
+body{
+    overflow-x: hidden;
+}
+
+
+.sts-1{
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    padding: 30px 0px;
+    width: 100%;
+}
+
+.sts-1>h1{
+    font-family: 'Cormorant Garamond', serif;
+    text-decoration: underline 2px solid var(--dark);
+    text-underline-offset: 6px;
+    margin: 30px 0px 90px 0px;
+    font-size: 36px;
+}
+
+.sts-1-1{ 
+    width: 100vw;
+    height: 360px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+.container{
+    position: relative;
+    overflow-x: hidden;
+}
+
+.cover{
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sts-1-1-1{
+    top: 0px;
+    left: 50%;
+    width: 900px;
+    padding: 30px 30px;
+    height: auto;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    border-radius: 9px;
+    line-height: 30px;
+    margin: 0px 5px 30px 5px;
+
+    background-color: var(--green);
+    color: white;
+}
+
+.sts-1-1-1>div>img{
+    top: -60px; 
+    height: 200px;  
+    width: 200px;
+    object-fit: cover;
+    object-position: top; 
+    border-radius: 50%;
+} 
+
+.sts-1-1-1>div:nth-child(1){
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sts-1-1-1>div>div>p:nth-child(1){
+     font-size: 24px;
+    mix-blend-mode: overlay;
+}
+
+.sts-1-1-1>div>div>p:nth-child(2){
+    font-size: 14px;
+    font-weight: lighter;
+
+}
+
+
+.sts-1-1-1>div:nth-child(2){
+    padding: 10px 30px;
+}
+
+
+.c-left{
+    position:  absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%)  scale(0.6);
+    mix-blend-mode: overlay;
+}
+
+.c-right{
+    position:  absolute; 
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%) scale(0.6);
+    mix-blend-mode: overlay;
+}
+
+
+.sts-1-2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    width: 1200px;
+    margin: 0px auto;
+}
+
+ 
+.sts-1-2-1{
+    margin: 30px;
+}
+
+.sts-1-2-1>img{
+     width: 160px;
+}
+
+
+
+
+
+
+@media only screen and (max-width:1300px) {
+    .c-left{
+        left: 30px;
+    } 
+    
+    .c-right{
+        right: 30px;
+    }
+
+    .sts-1-2{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    
+        width: 100%;
+        margin: 10px;
+    }
+
+
+ }
+
+ 
+@media only screen and (max-width:1000px) {
+    .sts-1-1-1{
+        width: 99%;
+        flex-direction: column;
+    }
+
+ }
+
+
+ @media only screen and (max-width:600px) {
+    .c-left{
+        left: 10px;
+    } 
+    
+    .c-right{
+        right: 10px;
+    }
+
+
+ }
