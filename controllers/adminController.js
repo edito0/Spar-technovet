@@ -19,6 +19,7 @@ const nodemailer = require('nodemailer')
 const Randomstring = require('randomstring')
 
 const dotenv = require('dotenv');
+const { log } = require('console');
 dotenv.config({ path: './config/config.env' });
 
 
@@ -241,7 +242,9 @@ const postEditHome = async (req, res) => {
 
         const home = new Home(
             {
-                home_image: image
+                home_image: image,
+                home_title: req.body.title
+
             }
         );
 
@@ -444,9 +447,7 @@ const postEditProject = async (req, res) => {
                 project_title: req.body.title,
                 project_content: req.body.content,
                 scope: req.body.scope,
-                location: req.body.location,
-                photographer: req.body.photographer,
-                featuredin: req.body.featuredin
+                location: req.body.location
             }
         );
 
@@ -590,25 +591,47 @@ const analytics = async (req, res) => {
 const postAnalytics = async (req, res) => {
     try {
 
-        const data = await Analytics.findOne({});
-        const address = req.body.address;
-        const linkedin = req.body.linkedin;
-        const instagram = req.body.instagram;
-        const pinterest = req.body.pinterest; 
-        const houzz = req.body.houzz; 
+        var data = await Analytics.findOne({});
+        var address = data.address;
+        var linkedin = data.linkedin;
+        var instagram = data.instagram;
+        var pinterest = data.pinterest;
+        var houzz  = data.houzz;       
 
+        if(req.body.address != "")    
+        { 
+            address = req.body.address;
+        }
+
+        if(req.body.linkedin != "")
+        {
+            linkedin = req.body.linkedin;
+        }
+      
+
+        if(req.body.instagram != "")
+        {
+            instagram = req.body.instagram;
+        }
+
+        if(req.body.pinterest != "")
+        {
+            pinterest = req.body.pinterest; 
+        }
+
+        if(req.body.houzz != "")
+        {
+            houzz = req.body.houzz; 
+        }
 
         await Analytics.updateOne({ _id: data._id }, { $set: { address: address, linkedin: linkedin, instagram: instagram, pinterest: pinterest,houzz:houzz } })
-
-        const data1 = await Analytics.findOne({});
-        console.log(data1);
         res.redirect('/admin/analytics');
 
     } catch (error) {
         console.log(error.message);
     }
 }
-// ANALYTICS ENDS 
+// ANALYTICS ENDS    
 
 
 //CLIENTS

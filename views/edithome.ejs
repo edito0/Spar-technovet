@@ -62,6 +62,8 @@
         <form action="/admin/edithome" method="POST" enctype="multipart/form-data">
           <label for="">Image</label>
           <input type="file" name="image"> 
+          <label for="">Title</label>
+          <input type="text" maxlength="50" name="title" placeholder="Wrtie Your Title here"> 
           <input type="submit" value="submit">
         </form>
       </div>       
@@ -72,8 +74,10 @@
           <% for (var i=0; i <edithomes.length; i++ ) { %>
             <li class="text-closed">
                <img data-src="/images/<%= edithomes[i].home_image %>" alt="<%= edithomes[i].home_image %>">
+               <p>  
+                 <%= edithomes[i].home_title %>
+               </p>
               <a href=""><i class="fa-solid fa-trash deleteData" data-id="<%=edithomes[i]._id%>"></i></a>
-              
             </li>
             <% } %>
     

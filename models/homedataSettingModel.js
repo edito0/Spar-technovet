@@ -5,6 +5,10 @@ const homedataSettingSchema = mongoose.Schema({
         type:String,
         require:true,
         default:""
+    },
+    home_title:{
+        type:String,
+        default:""
     }   
 })  
 

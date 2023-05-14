@@ -89,7 +89,7 @@
               <a href=""><i class="fa-solid fa-trash deleteData-testimonial" data-id="<%=edittestimonial[i]._id%>"></i></a>
               
             </li>
-            <% } %>
+            <% } %> 
     
         </ul>
       </div>
@@ -122,6 +122,14 @@
   </section> 
 
   <script>
+
+
+const focustext = document.querySelectorAll('.text-closed');
+    focustext.forEach((e)=>{
+         e.addEventListener('click',()=>{
+           e.classList.toggle('text-active');
+         });
+    })
 
 
 
